@@ -1,0 +1,35 @@
+[user]
+	name = Aaron Gelter
+	email = agelter@netflix.com
+[filesystem "Azul Systems, Inc.|1.8.0_222|/dev/disk1s1"]
+	timestampResolution = 1001 milliseconds
+	minRacyThreshold = 0 nanoseconds
+[core]
+	pager = less -X -F
+	excludesfile = /Users/agelter/.gitignore_global
+[alias]
+    cp = cherry-pick
+	rhm = reset --hard origin/master
+    pt = push-to-target
+    pr = !git push origin HEAD 2>&1 | grep https | sed s/remote:// | xargs open
+    dm = remote prune origin
+    br = branch --sort=-committerdate
+    br2 = !git reflog show --pretty=format:'%gs ~ %gd' --date=relative | grep 'checkout:' | grep -oE '[^ ]+ ~ .*' | awk -F~ '!seen[$1]++' | head -n 15 | awk -F' ~ HEAD@{' '{printf(\"  \\033[33m%s: \\033[37m %s\\033[0m\\n\", substr($2, 1, length($2)-1), $1)}'
+    wip = !git add -u && git commit -m wip --no-verify
+[merge]
+	renamelimit = 5000
+[status]
+	submoduleSummary = true
+[pull]
+	rebase = false
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/agelter/.stCommitMsg
+[rerere]
+	enabled = true
+	autoupdate = true

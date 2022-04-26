@@ -36,13 +36,14 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
   colored-man-pages
   colorize
+  command-not-found
   docker
   docker-compose
   git
+  gitfast
   iterm2
   pyenv
   zsh-autosuggestions
-  zsh_reload
   zsh-wakatime
 )
 
@@ -108,8 +109,20 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# PVM
+export NF_IDFILE="$HOME/.idfile"
+
 export NETFLIX_SKIP_TESTS='dta'
 
+# OpenSSL
+export PATH="/usr/local/opt/openssl@3/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/openssl@3/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl@3/include"
+
+# For games tools
+export METADATA_PATH=/tmp
+#export PE_TOOLS_DIR='/Users/agelter/src/games_pe_tools/tools/'
+#
 # direnv
 eval "$(direnv hook zsh)"
 

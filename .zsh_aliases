@@ -33,3 +33,5 @@ alias weep_prod_restricted="weep file arn:aws:iam::149510111645:role/awsprod_gam
 alias weep_test_restricted="weep file arn:aws:iam::179727101194:role/awstest_gaming_binary_restricted"
 alias weep_test_gaming_instance="weep file arn:aws:iam::179727101194:role/gamingpetoolsInstanceProfile"
 alias weep_prod_gaming_instance="weep file arn:aws:iam::149510111645:role/gamingpetoolsInstanceProfile"
+
+alias mvim=/Applications/MacVim.app/Contents/bin/mvim

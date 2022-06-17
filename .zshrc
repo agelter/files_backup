@@ -16,6 +16,10 @@ if [[ "$(arch)" = "arm64" ]]; then
 
     # use brew version of openssl
     export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
+
+    # prefer Brew python
+    export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+    export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 elif [[ "$(arch)" = "i386" ]]; then
     echo "Detected x86 ..."
     export HOMEBREW_PREFIX="/usr/local";
@@ -33,6 +37,9 @@ elif [[ "$(arch)" = "i386" ]]; then
     export PATH="/usr/local/opt/openssl@3/bin:$PATH"
     export LDFLAGS="${LDFLAGS+$LDFLAGS} -L/usr/local/opt/openssl@3/lib"
     export CPPFLAGS="${LDFLAGS+$LDFLAGS} -I/usr/local/opt/openssl@3/include"
+elif [[ "$(arch)" = "x86_64" ]]; then
+    echo "Detected x86_64 (linux) ..."
+    export PATH="$HOME/.local/bin:$PATH"
 else
     echo "Unknown architecture."
 fi
@@ -48,7 +55,7 @@ fi
 #export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/agelter/.oh-my-zsh"
+export ZSH="${HOME}/.oh-my-zsh"
 
 # Use case-sensitive completion.
 CASE_SENSITIVE="true"
@@ -115,10 +122,6 @@ source ~/.zsh_aliases
 # Local bin
 export PATH=${PATH}:~/bin
 
-# prefer Brew python
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-export PATH="$HOME/Library/Python/3.7/bin:$PATH"
-
 # RAE
 #export SONY_DEV='NFANDROID2-PRV-SONYANDROIDTV2018M3-SONY=BRAVIA=4K=UR1-7644-FAD1038E75DA901E8564CFCCC6DACE49D8E383CD1D8195C238A7A9530B23928A'
 #export FIRE_TV='NFANDROID2-PRV-FTVCUBE2019-AMAZOAFTR-11776-2F4175064A7368525E0AB40F963C4BF7DB8746ED6B2E0A664715EDB5663C15AD'
@@ -154,15 +157,18 @@ export NF_IDFILE="$HOME/.idfile"
 
 export NETFLIX_SKIP_TESTS='dta'
 
+# Xilinx
+export XILINXD_LICENSE_FILE="${HOME}/.local/.Xilinx/"
+source /opt/Xilinx/Vivado/2018.2/settings64.sh
 
 # For games tools
-export METADATA_PATH=/tmp
-#export PE_TOOLS_DIR='/Users/agelter/src/games_pe_tools/tools/'
+#export METADATA_PATH=/tmp
+##export PE_TOOLS_DIR='${HOME}/src/games_pe_tools/tools/'
 #
 # direnv
 eval "$(direnv hook zsh)"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/agelter/.sdkman"
-[[ -s "/Users/agelter/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/agelter/.sdkman/bin/sdkman-init.sh"
+export SDKMAN_DIR="${HOME}/.sdkman"
+[[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 

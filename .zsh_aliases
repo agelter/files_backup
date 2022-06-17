@@ -7,8 +7,8 @@ alias gpr='git pull --rebase'
 alias gcne='git commit --amend --no-edit'
 alias shelve='git add -u && git commit --no-verify -m wip'
 
-alias knockExternal='for x in 10413 10222 11498 12365; do nmap -Pn --host_timeout 201 --max-retries 0 -p 12365 gelter.noip.me; done'
-alias knockInternal='knock 10.0.0.43 10413 10222 11498 12365'
+#alias knockExternal='for x in 10413 10222 11498 12365; do nmap -Pn --host_timeout 201 --max-retries 0 -p 12365 gelter.noip.me; done'
+#alias knockInternal='knock 10.0.0.43 10413 10222 11498 12365'
 
 alias ls='lsd'
 alias l='ls -l'
@@ -16,22 +16,24 @@ alias la='ls -a'
 alias lla='ls -al'
 alias lt='ls --tree'
 
-alias meld='/Applications/Meld.app/Contents/MacOS/Meld'
+#alias meld='/Applications/Meld.app/Contents/MacOS/Meld'
 
 alias ssh='ssh -Y'
-alias sync_dirs_no_git='rsync -avzh --progress --exclude=.vscode --exclude="*.so"  --exclude=.snaprr --exclude=.git/ --exclude=not_tracked/'
-alias sync_dirs='rsync -avzh --progress --exclude=.vscode --exclude="*.so"  --exclude=.snaprr --exclude=not_tracked/ --exclude=.tox --exclude=.venv --exclude=.mypy_cache --exclude=__pycache__ --exclude=.pytest_cache --exclude=.DS_Store'
-
-alias sed='gsed'
+#alias sync_dirs_no_git='rsync -avzh --progress --exclude=.vscode --exclude="*.so"  --exclude=.snaprr --exclude=.git/ --exclude=not_tracked/'
+#alias sync_dirs='rsync -avzh --progress --exclude=.vscode --exclude="*.so"  --exclude=.snaprr --exclude=not_tracked/ --exclude=.tox --exclude=.venv --exclude=.mypy_cache --exclude=__pycache__ --exclude=.pytest_cache --exclude=.DS_Store'
+#
+#alias sed='gsed'
 alias cat='bat --paging=never'
 
 alias rg='rg --hidden'
 
-alias vpn_restart="sudo kill -SEGV \$(ps auwx | grep dsAccessService | grep Ss | awk '{print \$2}'); sudo route delete pcs.flxvpn.net"
+#alias vpn_restart="sudo kill -SEGV \$(ps auwx | grep dsAccessService | grep Ss | awk '{print \$2}'); sudo route delete pcs.flxvpn.net"
+#
+#alias weep_prod_restricted="weep file arn:aws:iam::149510111645:role/awsprod_gaming_binary_restricted"
+#alias weep_test_restricted="weep file arn:aws:iam::179727101194:role/awstest_gaming_binary_restricted"
+#alias weep_test_gaming_instance="weep file arn:aws:iam::179727101194:role/gamingpetoolsInstanceProfile"
+#alias weep_prod_gaming_instance="weep file arn:aws:iam::149510111645:role/gamingpetoolsInstanceProfile"
+#
+#alias mvim=/Applications/MacVim.app/Contents/bin/mvim
 
-alias weep_prod_restricted="weep file arn:aws:iam::149510111645:role/awsprod_gaming_binary_restricted"
-alias weep_test_restricted="weep file arn:aws:iam::179727101194:role/awstest_gaming_binary_restricted"
-alias weep_test_gaming_instance="weep file arn:aws:iam::179727101194:role/gamingpetoolsInstanceProfile"
-alias weep_prod_gaming_instance="weep file arn:aws:iam::149510111645:role/gamingpetoolsInstanceProfile"
-
-alias mvim=/Applications/MacVim.app/Contents/bin/mvim
+alias connect_vpn="sudo openvpn --config /etc/openvpn/lt.ovpn.netflix.net.201908.ovpn"

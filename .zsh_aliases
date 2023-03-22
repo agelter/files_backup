@@ -37,3 +37,14 @@ alias rg='rg --hidden'
 #alias mvim=/Applications/MacVim.app/Contents/bin/mvim
 
 alias connect_vpn="sudo openvpn --config /etc/openvpn/lt.ovpn.netflix.net.201908.ovpn"
+
+# Eleven
+export HOME_ELEVEN='r3100109'
+export OFFICE_ELEVEN_UNLOCKED='r3100114'
+export FREDERIC_UNIGRAF_ELEVEN='r3100230'
+alias kssh='kaiju-admin ssh'
+alias kssh_home_eleven='kssh $HOME_ELEVEN'
+alias kssh_office_eleven_unlocked='kssh $OFFICE_ELEVEN_UNLOCKED'
+alias kssh_frederic_unigraf_eleven='kssh $FREDERIC_UNIGRAF_ELEVEN'
+
+alias kscp='kaiju-admin scp'

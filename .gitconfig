@@ -8,6 +8,7 @@
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	excludesfile = ~/.gitignore_global
 	editor = vi
+	autocrlf = input
 [alias]
     cp = cherry-pick
 	rhm = reset --hard origin/master
@@ -17,6 +18,7 @@
     br = branch --sort=-committerdate
     br2 = !git reflog show --pretty=format:'%gs ~ %gd' --date=relative | grep 'checkout:' | grep -oE '[^ ]+ ~ .*' | awk -F~ '!seen[$1]++' | head -n 15 | awk -F' ~ HEAD@{' '{printf(\"  \\033[33m%s: \\033[37m %s\\033[0m\\n\", substr($2, 1, length($2)-1), $1)}'
     wip = !git add -u && git commit -m wip --no-verify
+    sno = show --name-only
 [merge]
 	renamelimit = 5000
 [status]
@@ -29,8 +31,6 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
-[commit]
-	template = ~/.stCommitMsg
 [rerere]
 	enabled = true
 	autoupdate = true
@@ -53,3 +53,10 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+[ini]
+	defaultBranch = main
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

@@ -110,10 +110,10 @@ precmd() { echo; }
 DEFAULT_USER=agelter
 
 # Enable syntax highlighting
-#source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source "$ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # zsh-autosuggestions highlight color
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
 # bind Ctrl-Space to auto-complete
 bindkey '^ ' autosuggest-accept
 
@@ -143,9 +143,11 @@ unsetopt share_history
 
 # iTerm2
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+export TERM=screen-256color
 
 # Newt
 eval "$(NEWT_OFFLINE=1 NEWT_QUIET=1 newt --completion-script-zsh)"
+export NEWT_SKIP_VPNCHECK=1
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
@@ -158,8 +160,13 @@ export NF_IDFILE="$HOME/.idfile"
 export NETFLIX_SKIP_TESTS='dta'
 
 # Xilinx
-export XILINXD_LICENSE_FILE="${HOME}/.local/.Xilinx/"
-source /opt/Xilinx/Vivado/2018.2/settings64.sh
+#export XILINXD_LICENSE_FILE="${HOME}/.local/.Xilinx/"
+export XILINXD_LICENSE_FILE="2100@xilinx-license-server.nflxsdn.com"
+#source "${HOME}/Xilinx/Vivado/2018.2/settings64.sh"
+source "${HOME}/Xilinx/Vivado/2022.1/settings64.sh"
+
+# Eleven
+export SKIP_PLUGINS_TESTS=1
 
 # For games tools
 #export METADATA_PATH=/tmp
@@ -171,4 +178,5 @@ eval "$(direnv hook zsh)"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
+
 

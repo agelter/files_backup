@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
 
-alias gl='git log --color --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\'' --abbrev-commit'
+#alias gl='git log --color --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\'' --abbrev-commit'
 alias grh='git reset --hard HEAD'
-alias gs='git status'
-alias gpr='git pull --rebase'
-alias gcne='git commit --amend --no-edit'
+#alias gs='git status'
+#alias gpr='git pull --rebase'
+#alias gcne='git commit --amend --no-edit'
 alias shelve='git add -u && git commit --no-verify -m wip'
 
 #alias knockExternal='for x in 10413 10222 11498 12365; do nmap -Pn --host_timeout 201 --max-retries 0 -p 12365 gelter.noip.me; done'
@@ -16,6 +16,8 @@ alias la='ls -a'
 alias lla='ls -al'
 alias lt='ls --tree'
 
+alias df='duf'
+
 #alias meld='/Applications/Meld.app/Contents/MacOS/Meld'
 
 alias ssh='ssh -Y'
@@ -25,7 +27,7 @@ alias ssh='ssh -Y'
 #alias sed='gsed'
 alias cat='bat --paging=never'
 
-alias rg='rg --hidden'
+alias rg='rg --hidden -g "!.git" -g "!.yarn"'
 
 #alias vpn_restart="sudo kill -SEGV \$(ps auwx | grep dsAccessService | grep Ss | awk '{print \$2}'); sudo route delete pcs.flxvpn.net"
 #
@@ -41,6 +43,7 @@ alias connect_vpn="sudo openvpn --config /etc/openvpn/lt.ovpn.netflix.net.201908
 # Eleven
 export HOME_ELEVEN='r3100109'
 export OFFICE_ELEVEN_UNLOCKED='r3100114'
+export OFFICE_ELEVEN_UNLOCKED2='r3100493'
 export FREDERIC_UNIGRAF_ELEVEN='r3100230'
 alias kssh='kaiju-admin ssh'
 alias kssh_home_eleven='kssh $HOME_ELEVEN'
@@ -48,3 +51,8 @@ alias kssh_office_eleven_unlocked='kssh $OFFICE_ELEVEN_UNLOCKED'
 alias kssh_frederic_unigraf_eleven='kssh $FREDERIC_UNIGRAF_ELEVEN'
 
 alias kscp='kaiju-admin scp'
+
+export CI_1_ROKU='r3100032'
+export CI_2_BCM='r3100221'
+export CI_3_FIRE='r3100008'
+export CI_4_AMLOGIC='r3100080'

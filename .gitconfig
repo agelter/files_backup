@@ -1,6 +1,7 @@
 [user]
 	name = Aaron Gelter
 	email = agelter@netflix.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHQIoHWeCP3B6dn/iPXOrUqGeyyQbGux5cZ7Tu0aBqr1
 [filesystem "Azul Systems, Inc.|1.8.0_222|/dev/disk1s1"]
 	timestampResolution = 1001 milliseconds
 	minRacyThreshold = 0 nanoseconds
@@ -18,7 +19,18 @@
     br = branch --sort=-committerdate
     br2 = !git reflog show --pretty=format:'%gs ~ %gd' --date=relative | grep 'checkout:' | grep -oE '[^ ]+ ~ .*' | awk -F~ '!seen[$1]++' | head -n 15 | awk -F' ~ HEAD@{' '{printf(\"  \\033[33m%s: \\033[37m %s\\033[0m\\n\", substr($2, 1, length($2)-1), $1)}'
     wip = !git add -u && git commit -m wip --no-verify
-    sno = show --name-only
+    sno = show --name-only --show-signature
+	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	ca = commit --amend --no-edit --sign
+	ci = commit --verbose
+	fp = push --force-with-lease
+	rb = "!f() { if [ $# -eq 0 ]; then set -- origin/main; git fetch origin main; fi && git rebase \"$@\"; }; f"
+	rc = rebase --continue
+	ri = "!f() { if [ $# -eq 0 ]; then set -- origin/main; fi; git rebase --interactive --keep-base \"$@\"; }; f"
+	st = status --short
+	pullrb = pull --rebase
+    sw = "!f() { if [ $# -gt 0 ]; then git switch \"$@\"; else git branch --sort=-committerdate | fzf | xargs git switch; fi; }; f"
+    bcln = "!f() { dbranch=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5); git branch -d $(git branch --merged=$dbranch | grep -v $dbranch); }; f"
 [merge]
 	renamelimit = 5000
 [status]
@@ -36,8 +48,8 @@
 	autoupdate = true
 [init]
 	defaultBranch = main
-[interactive]
-	diffFilter = diff-so-fancy --patch
+#[interactive]
+#	diffFilter = diff-so-fancy --patch
 [color]
 	ui = true
 [color "diff-highlight"]
@@ -60,3 +72,21 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[push]
+	autoSetupRemote = true
+[rebase]
+	autoStash = true
+	updateRefs = true
+[fetch]
+	prune = true
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /opt/1Password/op-ssh-sign
+	allowedSignersFile = /home/agelter/.config/git/allowed_signers
+[commit]
+	gpgsign = true
+[http "https://stash-temporary.netflix.net:7006/"]
+	sslCert = /home/agelter/.metatron/certificates/client.crt
+	sslKey = /home/agelter/.metatron/certificates/client.key
+	sslVerify = true

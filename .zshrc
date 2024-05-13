@@ -69,6 +69,8 @@ ENABLE_CORRECTION="false"
 # Display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
+# Don't echo the command back to the console
+export DISABLE_AUTO_TITLE="true"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -119,8 +121,9 @@ bindkey '^ ' autosuggest-accept
 
 source ~/.zsh_aliases
 
-# Local bin
+# Local bin dirs
 export PATH=${PATH}:~/bin
+export PATH=${PATH}:~/src/bin
 
 # RAE
 #export SONY_DEV='NFANDROID2-PRV-SONYANDROIDTV2018M3-SONY=BRAVIA=4K=UR1-7644-FAD1038E75DA901E8564CFCCC6DACE49D8E383CD1D8195C238A7A9530B23928A'
@@ -145,9 +148,18 @@ unsetopt share_history
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 export TERM=screen-256color
 
+# 1password
+eval "$(op completion zsh)"; compdef _op op
+
+# gh completion
+export PATH="${PATH}:/usr/local/share/zsh/site-functions/_gh"
+autoload -U compinit
+compinit -i
+eval "$(gh copilot alias -- zsh)"
+
 # Newt
 eval "$(NEWT_OFFLINE=1 NEWT_QUIET=1 newt --completion-script-zsh)"
-export NEWT_SKIP_VPNCHECK=1
+#export NEWT_SKIP_VPNCHECK=1
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
@@ -162,8 +174,7 @@ export NETFLIX_SKIP_TESTS='dta'
 # Xilinx
 #export XILINXD_LICENSE_FILE="${HOME}/.local/.Xilinx/"
 export XILINXD_LICENSE_FILE="2100@xilinx-license-server.nflxsdn.com"
-#source "${HOME}/Xilinx/Vivado/2018.2/settings64.sh"
-source "${HOME}/Xilinx/Vivado/2022.1/settings64.sh"
+export XILINX_INSTALL_DIR="${HOME}/Xilinx"
 
 # Eleven
 export SKIP_PLUGINS_TESTS=1
@@ -175,8 +186,20 @@ export SKIP_PLUGINS_TESTS=1
 # direnv
 eval "$(direnv hook zsh)"
 
+# The Fuck
+eval $(thefuck --alias)
+# Zoxide
+eval "$(zoxide init zsh)"
+
+# set LS_COLORS
+source "${HOME}/.config/lsd/lscolors.sh"
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 
 
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+source /home/agelter/.config/op/plugins.sh

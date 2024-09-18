@@ -1,3 +1,10 @@
+##### BEGIN METATRON AUTOCONFIG
+# Do not remove the above line. The metatron CLI uses it to update this file.
+# Set git proxy configuration (must be the first directive in this file)
+[include]
+    path = /Users/agelter/.gitconfig-proxy
+# Do not remove the below line. The metatron CLI uses it to update this file.
+##### END METATRON AUTOCONFIG
 [user]
 	name = Aaron Gelter
 	email = agelter@netflix.com
@@ -82,11 +89,27 @@
 [gpg]
 	format = ssh
 [gpg "ssh"]
-	program = /opt/1Password/op-ssh-sign
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 	allowedSignersFile = /home/agelter/.config/git/allowed_signers
 [commit]
 	gpgsign = true
+
 [http "https://stash-temporary.netflix.net:7006/"]
-	sslCert = /home/agelter/.metatron/certificates/client.crt
-	sslKey = /home/agelter/.metatron/certificates/client.key
-	sslVerify = true
+  sslCert = /Users/agelter/.metatron/certificates/client.crt
+  sslKey = /Users/agelter/.metatron/certificates/client.key
+  sslVerify = true
+
+#[http "https://stash.prod.netflix.net:7006"]
+#  sslCert = /Users/agelter/.metatron/certificates/user.crt
+#  sslKey = /Users/agetler/.metatron/certificates/user.key
+#  sslVerify = true
+#
+#[url "https://stash.prod.netflix.net:7006/scm"]
+#    insteadOf = ssh://git@stash.corp.netflix.com:7999
+#
+#[url "https://stash.prod.netflix.net:7006"]
+#  insteadOf = https://stash.corp.netflix.com
+#  insteadOf = https://stash.corp.netflix.com:7006
+#  insteadOf = https://stash.corp.netflix.com:7004
+
+

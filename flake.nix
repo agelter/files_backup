@@ -31,14 +31,17 @@
 
     homeConfigurations.server = mkHomeConfiguration {
       extraSpecialArgs = {
+        username = "agelter";
+        homeDirectory = "/home/agelter";
         withGUI = false;
         isDesktop = false;
       };
     };
 
     homeConfigurations.mac = mkHomeConfiguration {
-      system = "aarch64-darwin";
       extraSpecialArgs = {
+        username = "agelter";
+        homeDirectory = "/Users/agelter";
         withGUI = true;
         isDesktop = true;
       };

@@ -6,7 +6,7 @@ let
   packages = import ./packages.nix;
 
   # hacky way of determining which machine I'm running this from
-  inherit (specialArgs) withGUI isDesktop networkInterface;
+  inherit (specialArgs) withGUI isDesktop networkInterface homeDirectory username;
 
   inherit (lib) mkIf;
   inherit (pkgs.stdenv) isLinux isDarwin;
@@ -18,7 +18,7 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   home.packages = packages pkgs withGUI;
-  home.homeDirectory = "/home/agelter";
-  home.username = "agelter";
+  home.homeDirectory = homeDirectory;
+  home.username = username;
   home.stateVersion = "21.11";
 }

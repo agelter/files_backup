@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+CONFIG="$1"
+
 # install nix
 sh <(curl -L https://nixos.org/nix/install)
 
@@ -16,6 +18,6 @@ echo "experimental-features = nix-command flakes" > "${HOME}/.config/nix/nix.con
 #nix-shell '<home-manager>' -A install
 
 # init!
-nix run .#home-manager -- switch --flake .#server
+nix run .#home-manager -- switch --flake .#${CONFIG}
 
 # add shellcheck

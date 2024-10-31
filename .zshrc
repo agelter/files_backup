@@ -17,9 +17,8 @@ if [[ "$(arch)" = "arm64" ]]; then
     # use brew version of openssl
     export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
 
-    # prefer Brew python
-    export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-    export PATH="$HOME/Library/Python/3.7/bin:$PATH"
+    # LLVM (clang-tidy, etc.)
+    export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 elif [[ "$(arch)" = "i386" ]]; then
     echo "Detected x86 ..."
     export HOMEBREW_PREFIX="/usr/local";
@@ -112,18 +111,21 @@ precmd() { echo; }
 DEFAULT_USER=agelter
 
 # Enable syntax highlighting
-#source "$ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+#source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # zsh-autosuggestions highlight color
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 # bind Ctrl-Space to auto-complete
 bindkey '^ ' autosuggest-accept
 
 source ~/.zsh_aliases
 
-# Local bin dirs
+# Local bin
 export PATH=${PATH}:~/bin
-export PATH=${PATH}:~/src/bin
+
+# prefer Brew python
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 
 # RAE
 #export SONY_DEV='NFANDROID2-PRV-SONYANDROIDTV2018M3-SONY=BRAVIA=4K=UR1-7644-FAD1038E75DA901E8564CFCCC6DACE49D8E383CD1D8195C238A7A9530B23928A'
@@ -150,12 +152,50 @@ export TERM=screen-256color
 
 # 1password
 eval "$(op completion zsh)"; compdef _op op
+#source /home/agelter/.config/op/plugins.sh
+export OP_PLUGIN_ALIASES_SOURCED=1
 
 # gh completion
 export PATH="${PATH}:/usr/local/share/zsh/site-functions/_gh"
 autoload -U compinit
 compinit -i
-eval "$(gh copilot alias -- zsh)"
+#eval "$(gh copilot alias -- zsh)"
+
+gh_command() {
+    # List of base directories where the -R option should be added for all subdirectories
+    local base_dirs=("${HOME}/src/avtnt" "${HOME}/src/pax" "${HOME}/src/other")
+    # List of gh subcommands that accept the -R option
+    local subcommands_with_repo_option=("pr" "issue" "repo" "release")
+
+    local current_dir="$PWD"
+    local add_repo_flag=false
+
+    for dir in "${base_dirs[@]}"; do
+        if [[ "$current_dir" == "$dir"* ]]; then
+            add_repo_flag=true
+            break
+        fi
+    done
+
+    local subcommand="$1"
+    shift
+
+    local use_repo_option=false
+    for cmd in "${subcommands_with_repo_option[@]}"; do
+        if [[ "$subcommand" == "$cmd" ]]; then
+            use_repo_option=true
+            break
+        fi
+    done
+
+    local gh_command="op plugin run -- gh $subcommand"
+    if [[ -e .git/ && "$add_repo_flag" == true && "$use_repo_option" == true ]]; then
+        gh_command="$gh_command -R corp/$(basename "$PWD")"
+    fi
+
+    eval "$gh_command" "$@"
+}
+alias gh="gh_command"
 
 # Newt
 eval "$(NEWT_OFFLINE=1 NEWT_QUIET=1 newt --completion-script-zsh)"
@@ -187,19 +227,27 @@ export SKIP_PLUGINS_TESTS=1
 eval "$(direnv hook zsh)"
 
 # The Fuck
-eval $(thefuck --alias)
+#eval $(thefuck --alias)
 # Zoxide
 eval "$(zoxide init zsh)"
+eval "$(fzf --zsh)"
 
 # set LS_COLORS
-source "${HOME}/.config/lsd/lscolors.sh"
+#source "${HOME}/.config/lsd/lscolors.sh"
+
+function nflx_promote() (
+  cd ${HOME}/src/avtnt/rae-packagecloud &&
+    newt exec node promote.js "$@"
+)
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 
 
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-source /home/agelter/.config/op/plugins.sh
+#export PYENV_ROOT="$HOME/.pyenv"
+#command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+#eval "$(pyenv init -)"
+
+
+export OP_ACCOUNT="my"

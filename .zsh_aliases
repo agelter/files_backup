@@ -40,6 +40,8 @@ alias rg='rg --hidden -g "!.git" -g "!.yarn"'
 
 alias connect_vpn="sudo openvpn --config /etc/openvpn/lt.ovpn.netflix.net.201908.ovpn"
 
+alias fixpulse="sudo launchctl unload -w /Library/LaunchDaemons/net.pulsesecure.AccessService.plist; sudo launchctl load -w /Library/LaunchDaemons/net.pulsesecure.AccessService.plist"
+
 # Eleven
 export HOME_ELEVEN='r3100109'
 export OFFICE_ELEVEN_UNLOCKED='r3100114'
@@ -56,3 +58,5 @@ export CI_1_ROKU='r3100032'
 export CI_2_BCM='r3100221'
 export CI_3_FIRE='r3100008'
 export CI_4_AMLOGIC='r3100080'
+
+alias reboot_device='function _reboot() { curl -X POST https://reboot.dta.netflix.com/v1/reboot -H "Content-Type: application/json" -d "{\"query\":{\"devId\":\"$1\"}}"; }; _reboot'

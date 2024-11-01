@@ -44,13 +44,15 @@ in
     enableZshIntegration = true;
   };
 
+  programs.vscode.enable = withGUI;
+
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
   };
 
+  # Newt
   home.file.".newt-install.sh".source = if isWorkMachine then ./scripts/newt-install.sh else lib.mkForce null;
-
   home.activation.installNewt = if isWorkMachine then lib.hm.dag.entryAfter [ ]
     ''
       # Run the newt installation script

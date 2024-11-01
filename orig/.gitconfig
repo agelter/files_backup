@@ -48,8 +48,8 @@
 	autoupdate = true
 [init]
 	defaultBranch = main
-#[interactive]
-#	diffFilter = diff-so-fancy --patch
+[interactive]
+	diffFilter = diff-so-fancy --patch
 [color]
 	ui = true
 [color "diff-highlight"]

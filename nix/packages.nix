@@ -18,6 +18,7 @@
   nixpkgs-review
   perl  # for fzf history
   ripgrep
+  shellcheck
   tree
   wget
   zoxide

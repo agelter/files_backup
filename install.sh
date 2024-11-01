@@ -25,4 +25,8 @@ echo "experimental-features = nix-command flakes" > "${HOME}/.config/nix/nix.con
 # init!
 nix run .#home-manager -- switch --flake .#${CONFIG}
 
-# add shellcheck
+# add zsh as a login shell
+command -v zsh | sudo tee -a /etc/shells
+
+# use zsh as default shell
+sudo chsh -s $(which zsh) $USER

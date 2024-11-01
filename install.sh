@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [ -z "$1" ]; then
+  echo "Error: run as '$0 <config>' where config is one of the configurations in flake.nix"
+  exit 1
+fi
+
 CONFIG="$1"
 
 # install nix

@@ -31,17 +31,17 @@
 
     homeConfigurations.server = mkHomeConfiguration {
       extraSpecialArgs = {
-        username = "agelter";
-        homeDirectory = "/home/agelter";
         withGUI = false;
         isDesktop = false;
       };
     };
 
     homeConfigurations.mac = mkHomeConfiguration {
+      modules = [ ({lib,...}:
+      {
+        home.homeDirectory = lib.mkForce "/Users/agelter";
+      })];
       extraSpecialArgs = {
-        username = "agelter";
-        homeDirectory = "/Users/agelter";
         withGUI = true;
         isDesktop = true;
       };

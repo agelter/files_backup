@@ -25,6 +25,10 @@ in
   };
 
   home.file.".npmrc".source = ./configs/.npmrc;
+  home.file.".prettierrc".source = ./configs/.prettierrc;
+  home.file.".pypirc".source = ./configs/.pypirc;
+  home.file.".wakatime.cfg".source = ./configs/.wakatime.cfg;
+  home.file.".yarnrc".source = ./configs/.yarnrc;
 
   programs.git = {
     enable = true;

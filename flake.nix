@@ -33,6 +33,7 @@
       extraSpecialArgs = {
         withGUI = false;
         isDesktop = false;
+        isWorkMachine = true;
       };
     };
 
@@ -44,6 +45,7 @@
       extraSpecialArgs = {
         withGUI = true;
         isDesktop = true;
+        isWorkMachine = true;
       };
     };
 

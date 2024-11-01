@@ -1,12 +1,12 @@
 { config, lib, pkgs, specialArgs, ... }:
 
 let
-  #bashsettings = import ./bash.nix pkgs;
-  vimsettings = import ./vim.nix;
-  packages = import ./packages.nix;
+  zshsettings = import ./nix/zsh.nix;
+  vimsettings = import ./nix/vim.nix;
+  packages = import ./nix/packages.nix;
 
   # hacky way of determining which machine I'm running this from
-  inherit (specialArgs) withGUI isDesktop networkInterface;
+  inherit (specialArgs) withGUI isDesktop isWorkMachine;
 
   inherit (lib) mkIf;
   inherit (pkgs.stdenv) isLinux isDarwin;
@@ -18,7 +18,7 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   home = {
-    packages = packages pkgs withGUI;
+    packages = packages { inherit pkgs withGUI isWorkMachine; };
     homeDirectory = "/home/agelter";
     username = "agelter";
     stateVersion = "21.11";
@@ -29,8 +29,25 @@ in
   home.file.".pypirc".source = ./configs/.pypirc;
   home.file.".wakatime.cfg".source = ./configs/.wakatime.cfg;
   home.file.".yarnrc".source = ./configs/.yarnrc;
+  home.file.".p10k.zsh".source = ./configs/.p10k.zsh;
 
   programs.neovim = vimsettings pkgs;
+  programs.zsh = zshsettings { inherit pkgs config isWorkMachine; };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 
   programs.git = {
     enable = true;

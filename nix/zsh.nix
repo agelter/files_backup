@@ -33,10 +33,10 @@
         sha256 = "QN/MUDm+hVJUMA4PDqs0zn9XC2wQZrgQr4zmCF0Vruk=";
       };
     }
-    {                                                                                   
-      name = "powerlevel10k";                                                           
-      src = pkgs.zsh-powerlevel10k;                                                     
-      file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";                         
+    {
+      name = "powerlevel10k";
+      src = pkgs.zsh-powerlevel10k;
+      file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
     }
   ];
 
@@ -113,7 +113,7 @@
 
   initExtraBeforeCompInit = ''
     # init nix env
-    . ~/.nix-profile/etc/profile.d/nix.sh
+    [ -f ~/.nix-profile/etc/profile.d/nix.sh ] && . ~/.nix-profile/etc/profile.d/nix.sh
 
     # bind Ctrl-Space to auto-complete
     bindkey '^ ' autosuggest-accept

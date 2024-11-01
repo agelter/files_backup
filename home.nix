@@ -22,7 +22,7 @@ in
     packages = packages { inherit pkgs withGUI isWorkMachine; };
     homeDirectory = "/home/agelter";
     username = "agelter";
-    stateVersion = "21.11";
+    stateVersion = "23.05";
   };
 
   home.file.".npmrc".source = ./configs/.npmrc;
@@ -37,31 +37,38 @@ in
   programs.zsh = zshsettings { inherit pkgs config isWorkMachine; };
 
   programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
+   enable = true;
+   enableZshIntegration = true;
   };
 
   programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
+   enable = true;
+   enableZshIntegration = true;
   };
 
   programs.vscode.enable = withGUI;
 
   programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
+   enable = true;
+   enableZshIntegration = true;
   };
 
   # Newt
-  home.file.".newt-install.sh".source = if isWorkMachine then ./scripts/newt-install.sh else lib.mkForce null;
-  home.activation.installNewt = if isWorkMachine then lib.hm.dag.entryAfter [ ]
-    ''
-      # Run the newt installation script
-      if [ ! -f "$HOME/.newt_installed" ]; then
-        ${config.home.homeDirectory}/.newt-install.sh
-        touch "$HOME/.newt_installed"
-      fi
-    ''
+  home.file.".newt-install.sh" = {
+    source = if isWorkMachine then ./scripts/newt-install.sh else lib.mkForce null;
+    executable = true;
+  };
+  home.activation.newtInstallMarker = lib.hm.dag.entryAfter [ ] ''
+    # This is a no-op, but serves as a dependency marker
+    echo "Ensuring .newt-install.sh is in place"
+  '';
+  home.activation.installNewt = if isWorkMachine then lib.hm.dag.entryAfter [ "newtInstallMarker" ]
+   ''
+     # Run the newt installation script
+     if [ ! -f "$HOME/.newt_installed" ]; then
+       ${config.home.homeDirectory}/.newt-install.sh
+       touch "$HOME/.newt_installed"
+     fi
+   ''
   else lib.mkForce null;
 }

@@ -4,8 +4,10 @@
   inputs = {
     utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs"; 
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, home-manager, nixpkgs, utils }:
@@ -18,7 +20,7 @@
       mkHomeConfiguration = args: home-manager.lib.homeManagerConfiguration (rec {
         modules = [ (import ./home.nix) ] ++ (args.modules or []);
         pkgs = pkgsForSystem (args.system or "x86_64-linux");
-      } // { inherit (args) extraSpecialArgs; });  
+      } // { inherit (args) extraSpecialArgs; });
 
     in utils.lib.eachSystem [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ] (system: rec {
       legacyPackages = pkgsForSystem system;
@@ -38,6 +40,7 @@
     };
 
     homeConfigurations.mac = mkHomeConfiguration {
+      system = "aarch64-darwin";
       modules = [ ({lib,...}:
       {
         home.homeDirectory = lib.mkForce "/Users/agelter";

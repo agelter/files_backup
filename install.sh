@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu
+
 if [ -z "$1" ]; then
   echo "Error: run as '$0 <config>' where config is one of the configurations in flake.nix"
   exit 1
@@ -8,25 +10,25 @@ fi
 CONFIG="$1"
 
 # install nix
-sh <(curl -L https://nixos.org/nix/install)
+if ! command -v nix > /dev/null; then
+  echo "Installing nix..."
+  sh <(curl -L https://nixos.org/nix/install)
 
-# enable flakes
-mkdir -p "${HOME}/.config/nix/"
-echo "experimental-features = nix-command flakes" > "${HOME}/.config/nix/nix.conf"
+  # enable flakes
+  mkdir -p "${HOME}/.config/nix/"
+  echo "experimental-features = nix-command flakes" > "${HOME}/.config/nix/nix.conf"
+else
+  echo "Nix is already installed"
+fi
 
 # source nix
-. ~/.nix-profile/etc/profile.d/nix.sh
-
-# install home-manager
-#nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-#nix-channel --update
-#nix-shell '<home-manager>' -A install
+[ -f ~/.nix-profile/etc/profile.d/nix.sh ] && . ~/.nix-profile/etc/profile.d/nix.sh
 
 # init!
-nix run .#home-manager -- switch --flake .#${CONFIG}
+nix run .#home-manager -- switch --flake .#"${CONFIG}" -b bk
 
 # add zsh as a login shell
 command -v zsh | sudo tee -a /etc/shells
 
 # use zsh as default shell
-sudo chsh -s $(which zsh) $USER
+sudo chsh -s "$(which zsh)" "$USER"

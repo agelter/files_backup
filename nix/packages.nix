@@ -16,7 +16,6 @@
   nix-update
   nixpkgs-fmt
   nixpkgs-review
-  perl  # for fzf history
   ripgrep
   shellcheck
   tree
@@ -28,6 +27,7 @@
   meslo-lgs-nf
 ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
   # these packages are only installed in linux
+  perl  # for fzf history
 ] ++ pkgs.lib.optionals withGUI [
   # these packages are only installed in GUI environments
 ] ++ pkgs.lib.optionals isWorkMachine [

@@ -70,6 +70,7 @@
   localVariables = {
     # Shorter username at shell prompt
     DEFAULT_USER = "agelter";
+    EDITOR = "nvim";
 
     # Use case-sensitive completion.
     CASE_SENSITIVE = true;
@@ -111,6 +112,9 @@
   } else {});
 
   initExtraBeforeCompInit = ''
+    # init nix env
+    . ~/.nix-profile/etc/profile.d/nix.sh
+
     # bind Ctrl-Space to auto-complete
     bindkey '^ ' autosuggest-accept
 

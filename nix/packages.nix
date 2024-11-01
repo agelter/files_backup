@@ -20,6 +20,7 @@
   ripgrep
   tree
   wget
+  zoxide
 
   # zsh
   zsh-powerlevel10k

@@ -4,10 +4,12 @@
   binutils
   cmake
   direnv
+  duf
   fd
   fzf
   git
   gnupg
+  lsd
   nix-index
   nix-template
   nix-tree

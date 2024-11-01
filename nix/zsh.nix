@@ -10,7 +10,6 @@
 
   oh-my-zsh = {
     enable = true;
-    theme = "powerlevel10k/powerlevel10k";
     plugins = [
       "colored-man-pages"
       "colorize"
@@ -40,6 +39,33 @@
       file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";                         
     }
   ];
+
+  shellAliases = {
+    grh = "git reset --hard HEAD";
+    shelve = "git add -u && git commit --no-verify -m wip";
+    ls = "lsd";
+    l = "ls -l";
+    la = "ls -a";
+    lla = "ls -al";
+    lt = "ls --tree";
+    df = "duf";
+    ssh = "ssh -Y";
+    cat = "bat --paging=never";
+    rg = "rg --hidden -g \"!.git\" -g \"!.yarn\"";
+  } // (if isWorkMachine then {
+    connect_vpn = "sudo openvpn --config /etc/openvpn/lt.ovpn.netflix.net.201908.ovpn";
+    fixpulse = "sudo launchctl unload -w /Library/LaunchDaemons/net.pulsesecure.AccessService.plist; sudo launchctl load -w /Library/LaunchDaemons/net.pulsesecure.AccessService.plist";
+
+    # Eleven
+    kssh = "kaiju-admin ssh";
+    kssh_home_eleven = "kssh $HOME_ELEVEN";
+    kssh_office_eleven_unlocked = "kssh $OFFICE_ELEVEN_UNLOCKED";
+    kssh_frederic_unigraf_eleven = "kssh $FREDERIC_UNIGRAF_ELEVEN";
+
+    kscp = "kaiju-admin scp";
+
+    reboot_device = "function _reboot() { curl -X POST https://reboot.dta.netflix.com/v1/reboot -H \"Content-Type: application/json\" -d \"{\"query\":{\"devId\":\"$1\"}}\"; }; _reboot";
+  } else {});
 
   localVariables = {
     # Shorter username at shell prompt
@@ -71,6 +97,17 @@
 
     # Eleven
     SKIP_PLUGINS_TESTS = "1";
+
+    HOME_ELEVEN = "r3100109";
+    OFFICE_ELEVEN_UNLOCKED = "r3100114";
+    OFFICE_ELEVEN_UNLOCKED2 = "r3100493";
+    FREDERIC_UNIGRAF_ELEVEN = "r3100230";
+
+    CI_1_ROKU = "r3100032";
+    CI_2_BCM = "r3100221";
+    CI_3_FIRE = "r3100008";
+    CI_4_AMLOGIC = "r3100080";
+
   } else {});
 
   initExtraBeforeCompInit = ''

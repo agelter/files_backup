@@ -39,7 +39,7 @@
     fetch.prune = true;
     gpg.format = "ssh";
     "gpg \"ssh\"" = if isDesktop then {
-      program = "/opt/1Password/op-ssh-sign";
+      program = if pkgs.stedenv.isLinux then "/opt/1Password/op-ssh-sign" else "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       allowedSignersFile = "${config.home.homeDirectory}/.config/git/allowed_signers";
     } else {};
     "http \"https://stash-temporary.netflix.net:7006/\"" = {

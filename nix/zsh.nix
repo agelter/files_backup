@@ -84,6 +84,10 @@
     # iTerm2
     test -e "${config.home.homeDirectory}/.iterm2_shell_integration.zsh" && source "${config.home.homeDirectory}/.iterm2_shell_integration.zsh"
 
+    # Newt
+    eval "$(NEWT_OFFLINE=1 NEWT_QUIET=1 newt --completion-script-zsh)"
+    #export NEWT_SKIP_VPNCHECK=1
+
   '' + (if isWorkMachine then ''
     function nflx_promote() (
       cd ${config.home.homeDirectory}/src/avtnt/rae-packagecloud &&

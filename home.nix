@@ -49,6 +49,18 @@ in
     enableZshIntegration = true;
   };
 
+  home.file.".newt-install.sh".source = if isWorkMachine then ./scripts/newt-install.sh else lib.mkForce null;
+
+  home.activation.installNewt = if isWorkMachine then lib.hm.dag.entryAfter [ ]
+    ''
+      # Run the newt installation script
+      if [ ! -f "$HOME/.newt_installed" ]; then
+        ${config.home.homeDirectory}/.newt-install.sh
+        touch "$HOME/.newt_installed"
+      fi
+    ''
+  else lib.mkForce null;
+
   programs.git = {
     enable = true;
     lfs.enable = true;

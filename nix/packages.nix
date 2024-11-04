@@ -2,6 +2,7 @@
   # these packages are meant to be installed in all scenarios
   bat
   binutils
+  clang-tools
   cmake
   direnv
   duf

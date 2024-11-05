@@ -32,3 +32,10 @@ command -v zsh | sudo tee -a /etc/shells
 
 # use zsh as default shell
 sudo chsh -s "$(which zsh)" "$USER"
+
+# hack because nix doesn't want to run scripts directly
+# Run the newt installation script
+if [ -f "$HOME/.newt-metatron-install.sh" ] && [ ! -f "$HOME/.newt_metatron_installed" ]; then
+  $HOME/.newt-metatron-install.sh
+  touch "$HOME/.newt_metatron_installed"
+fi

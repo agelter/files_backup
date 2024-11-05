@@ -13,6 +13,7 @@ let
   inherit (pkgs.stdenv) isLinux isDarwin;
 in
 {
+
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [ ];
 
@@ -53,22 +54,19 @@ in
    enableZshIntegration = true;
   };
 
-  # Newt
-  home.file.".newt-install.sh" = {
-    source = if isWorkMachine then ./scripts/newt-install.sh else lib.mkForce null;
+  # Newt & Metatron
+  home.file.".newt-metatron-install.sh" = if isWorkMachine then {
+    source = ./scripts/newt-metatron-install.sh;  # Ensure the path is correct
     executable = true;
-  };
-  home.activation.newtInstallMarker = lib.hm.dag.entryAfter [ ] ''
-    # This is a no-op, but serves as a dependency marker
-    echo "Ensuring .newt-install.sh is in place"
-  '';
-  home.activation.installNewt = if isWorkMachine then lib.hm.dag.entryAfter [ "newtInstallMarker" ]
-   ''
-     # Run the newt installation script
-     if [ ! -f "$HOME/.newt_installed" ]; then
-       ${config.home.homeDirectory}/.newt-install.sh
-       touch "$HOME/.newt_installed"
-     fi
-   ''
-  else lib.mkForce null;
+  } else lib.mkForce null;
+
+  #home.activation.installNewtMetatron = if isWorkMachine then lib.hm.dag.entryAfter [ "writeBoundary" ]
+  #  ''
+  #    # Run the newt installation script
+  #    if [ ! -f "$HOME/.newt_metatron_installed" ]; then
+  #      ${config.home.homeDirectory}/.newt-metatron-install.sh
+  #      touch "$HOME/.newt_metatron_installed"
+  #    fi
+  #  ''
+  #else lib.mkForce null;
 }

@@ -34,5 +34,4 @@
   # these packages are only installed in GUI environments
 ] ++ pkgs.lib.optionals isWorkMachine [
   # these packages are only installed on work machines
-  docker
 ]

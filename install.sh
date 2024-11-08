@@ -12,7 +12,14 @@ CONFIG="$1"
 # install nix
 if ! command -v nix > /dev/null; then
   echo "Installing nix..."
-  sh <(curl -L https://nixos.org/nix/install)
+  if [[ "$(uname)" == "Darwin" ]]; then
+    sh <(curl -L https://nixos.org/nix/install)
+  elif [[ "$(uname)" == "Linux" ]]; then
+    sh <(curl -L https://nixos.org/nix/install) --daemon
+  else
+    echo "Unknown operating system."
+    exit 1
+  fi
 
   # enable flakes
   mkdir -p "${HOME}/.config/nix/"
@@ -21,11 +28,8 @@ else
   echo "Nix is already installed"
 fi
 
-# source nix
-[ -f ~/.nix-profile/etc/profile.d/nix.sh ] && . ~/.nix-profile/etc/profile.d/nix.sh
-
 # init!
-nix run .#home-manager -- switch --flake .#"${CONFIG}" -b bk
+home-manager switch --flake .#"${CONFIG}" -b bk
 
 # add zsh as a login shell
 command -v zsh | sudo tee -a /etc/shells
@@ -36,6 +40,6 @@ sudo chsh -s "$(which zsh)" "$USER"
 # hack because nix doesn't want to run scripts directly
 # Run the newt installation script
 if [ -f "$HOME/.newt-metatron-install.sh" ] && [ ! -f "$HOME/.newt_metatron_installed" ]; then
-  $HOME/.newt-metatron-install.sh
+  "$HOME/.newt-metatron-install.sh"
   touch "$HOME/.newt_metatron_installed"
 fi

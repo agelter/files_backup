@@ -67,7 +67,7 @@
     reboot_device = "function _reboot() { curl -X POST https://reboot.dta.netflix.com/v1/reboot -H \"Content-Type: application/json\" -d \"{\"query\":{\"devId\":\"$1\"}}\"; }; _reboot";
   } else {});
 
-  localVariables = {
+  sessionVariables = {
     # Shorter username at shell prompt
     DEFAULT_USER = "agelter";
     EDITOR = "nvim";

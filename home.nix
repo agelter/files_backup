@@ -59,14 +59,4 @@ in
     source = ./scripts/newt-metatron-install.sh;  # Ensure the path is correct
     executable = true;
   } else lib.mkForce null;
-
-  #home.activation.installNewtMetatron = if isWorkMachine then lib.hm.dag.entryAfter [ "writeBoundary" ]
-  #  ''
-  #    # Run the newt installation script
-  #    if [ ! -f "$HOME/.newt_metatron_installed" ]; then
-  #      ${config.home.homeDirectory}/.newt-metatron-install.sh
-  #      touch "$HOME/.newt_metatron_installed"
-  #    fi
-  #  ''
-  #else lib.mkForce null;
 }

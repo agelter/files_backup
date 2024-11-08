@@ -6,8 +6,6 @@
   };
   syntaxHighlighting.enable = true;
 
-  initExtra = "source ~/.p10k.zsh";
-
   oh-my-zsh = {
     enable = true;
     plugins = [
@@ -40,6 +38,43 @@
     }
   ];
 
+  history = {
+    expireDuplicatesFirst = true;
+    ignoreDups = true;
+    ignoreSpace = true;
+    extended = true;
+    path = "${config.xdg.dataHome}/zsh/history";
+    share = false;
+    size = 100000;
+    save = 100000;
+  };
+
+  profileExtra = ''
+      setopt incappendhistory
+      setopt histfindnodups
+      setopt histreduceblanks
+      setopt histverify
+      setopt correct                                                  # Auto correct mistakes
+      setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
+      setopt nocaseglob                                               # Case insensitive globbing
+      setopt rcexpandparam                                            # Array expension with parameters
+      #setopt nocheckjobs                                              # Don't warn about running processes when exiting
+      setopt numericglobsort                                          # Sort filenames numerically when it makes sense
+      setopt appendhistory                                            # Immediately append history instead of overwriting
+      unsetopt histignorealldups                                      # If a new command is a duplicate, do not remove the older one
+      setopt interactivecomments
+      zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
+      zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"       # Colored completion (different colors for dirs/files/etc)
+      zstyle ':completion:*' rehash true                              # automatically find new executables in path
+      # Speed up completions
+      zstyle ':completion:*' accept-exact '*(N)'
+      zstyle ':completion:*' use-cache on
+      mkdir -p "$(dirname ${config.xdg.cacheHome}/zsh/completion-cache)"
+      zstyle ':completion:*' cache-path "${config.xdg.cacheHome}/zsh/completion-cache"
+      zstyle ':completion:*' menu select
+      WORDCHARS=''${WORDCHARS//\/[&.;]}                                 # Don't consider certain characters part of the word
+    '';
+
   shellAliases = {
     grh = "git reset --hard HEAD";
     shelve = "git add -u && git commit --no-verify -m wip";
@@ -71,6 +106,8 @@
     # Shorter username at shell prompt
     DEFAULT_USER = "agelter";
     EDITOR = "nvim";
+    COLORTERM = "truecolor";
+    TERM = "screen-256color";
 
     # Use case-sensitive completion.
     CASE_SENSITIVE = true;
@@ -86,8 +123,6 @@
 
     # Don't echo the command back to the console
     DISABLE_AUTO_TITLE = true;
-
-    TERM = "screen-256color";
 
     # Local bin
     PATH = "$PATH:~/bin";
@@ -114,9 +149,8 @@
 
   } else {});
 
-  initExtraBeforeCompInit = ''
-    # init nix env
-    [ -f ~/.nix-profile/etc/profile.d/nix.sh ] && . ~/.nix-profile/etc/profile.d/nix.sh
+  initExtra = ''
+    source ~/.p10k.zsh
 
     # bind Ctrl-Space to auto-complete
     bindkey '^ ' autosuggest-accept
@@ -127,8 +161,6 @@
 
     # iTerm2
     test -e "${config.home.homeDirectory}/.iterm2_shell_integration.zsh" && source "${config.home.homeDirectory}/.iterm2_shell_integration.zsh"
-
-
   '' + (if isWorkMachine then ''
 
     # Newt

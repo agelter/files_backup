@@ -17,6 +17,7 @@
   nix-update
   nixpkgs-fmt
   nixpkgs-review
+  nodejs
   ripgrep
   shellcheck
   tree

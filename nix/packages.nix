@@ -21,6 +21,7 @@
   ripgrep
   shellcheck
   tree
+  wakatime
   wget
   zoxide
 

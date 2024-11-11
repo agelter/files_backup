@@ -39,7 +39,7 @@ sudo chsh -s "$(which zsh)" "$USER"
 
 # hack because nix doesn't want to run scripts directly
 # Run the newt installation script
-if [ -f "$HOME/.newt-metatron-install.sh" ] && [ ! -f "$HOME/.newt_metatron_installed" ]; then
-  "$HOME/.newt-metatron-install.sh"
-  touch "$HOME/.newt_metatron_installed"
+if [ -f "$HOME/.install-netflix-tools.sh" ] && [ ! -f "$HOME/.netflix_tools_installed" ]; then
+  "$HOME/.install-netflix-tools.sh"
+  touch "$HOME/.netflix_tools_installed"
 fi

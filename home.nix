@@ -4,6 +4,7 @@ let
   gitsettings = import ./nix/git.nix;
   packages = import ./nix/packages.nix;
   vimsettings = import ./nix/vim.nix;
+  vscode = import ./nix/vscode.nix;
   zshsettings = import ./nix/zsh.nix;
 
   # hacky way of determining which machine I'm running this from
@@ -35,6 +36,7 @@ in
 
   programs.git = gitsettings { inherit pkgs config isDesktop; };
   programs.neovim = vimsettings pkgs;
+  programs.vscode = vscode { inherit pkgs config withGUI; };
   programs.zsh = zshsettings { inherit pkgs config isWorkMachine; };
 
   programs.direnv = {
@@ -47,16 +49,14 @@ in
    enableZshIntegration = true;
   };
 
-  programs.vscode.enable = withGUI;
-
   programs.zoxide = {
    enable = true;
    enableZshIntegration = true;
   };
 
-  # Newt & Metatron
-  home.file.".newt-metatron-install.sh" = if isWorkMachine then {
-    source = ./scripts/newt-metatron-install.sh;  # Ensure the path is correct
+  # Newt, Metatron, etc
+  home.file.".install-netflix-tools.sh" = if isWorkMachine then {
+    source = ./scripts/install-netflix-tools.sh;  # Ensure the path is correct
     executable = true;
   } else lib.mkForce null;
 }

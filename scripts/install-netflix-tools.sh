@@ -5,3 +5,6 @@ curl -q -sL 'https://go.prod.netflix.net/newt-install' | bash
 
 # metatron
 curl -s 'https://artifacts.netflix.com/devtools/metatron-cli/install-script' | bash
+
+# dropship
+curl -sL https://go.prod.netflix.net/install-vscode-dropship | bash

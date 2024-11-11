@@ -7,6 +7,7 @@ pkgs:
     editorconfig-vim
     LanguageClient-neovim
     vim-better-whitespace
+    vim-wakatime
   ];
 
   extraConfig = ''

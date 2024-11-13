@@ -176,7 +176,7 @@
       tlsKeyFile = "${config.home.homeDirectory}/.metatron/certificates/client.key";
     };
 
-    cspell = {
+    cSpell = {
       enabled = true;
       language = "en";
       maxNumberOfProblems = 100;
@@ -187,11 +187,14 @@
       suggestCompoundWords = true;
       words = [
         "agelter"
+        "bitfile"
+        "bitstream"
+        "metatron"
+        "petalinux"
         "vivado"
         "vitis"
         "xsct"
         "xilinx"
-        "bitfile"
       ];
     };
 

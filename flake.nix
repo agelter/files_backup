@@ -8,9 +8,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mac-app-util.url = "github:hraban/mac-app-util";
   };
 
-  outputs = { self, home-manager, nixpkgs, utils }:
+  outputs = { self, home-manager, nixpkgs, utils, mac-app-util }:
     let
       pkgsForSystem = system: import nixpkgs {
         inherit system;
@@ -41,10 +42,13 @@
 
     homeConfigurations.mac = mkHomeConfiguration {
       system = "aarch64-darwin";
-      modules = [ ({lib,...}:
-      {
-        home.homeDirectory = lib.mkForce "/Users/agelter";
-      })];
+      modules = [
+        mac-app-util.homeManagerModules.default
+        ({lib,...}:
+        {
+          home.homeDirectory = lib.mkForce "/Users/agelter";
+        })
+      ];
       extraSpecialArgs = {
         withGUI = true;
         isDesktop = true;

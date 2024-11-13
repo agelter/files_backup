@@ -176,6 +176,25 @@
       tlsKeyFile = "${config.home.homeDirectory}/.metatron/certificates/client.key";
     };
 
+    cspell = {
+      enabled = true;
+      language = "en";
+      maxNumberOfProblems = 100;
+      showStatus = true;
+      showStatusWithCount = true;
+      showSuggestions = true;
+      spellCheckDelayMs = 50;
+      suggestCompoundWords = true;
+      words = [
+        "agelter"
+        "vivado"
+        "vitis"
+        "xsct"
+        "xilinx"
+        "bitfile"
+      ];
+    };
+
     C_Cpp = {
       codeAnalysis = {
         clangTidy = {

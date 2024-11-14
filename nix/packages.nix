@@ -18,6 +18,7 @@
   nixpkgs-fmt
   nixpkgs-review
   nodejs
+  python3
   ripgrep
   shellcheck
   tree

@@ -187,8 +187,11 @@
       suggestCompoundWords = true;
       words = [
         "agelter"
+        "avtnt"
         "bitfile"
         "bitstream"
+        "dockerregistery"
+        "elevenmax"
         "metatron"
         "petalinux"
         "vivado"

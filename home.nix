@@ -25,6 +25,10 @@ in
     homeDirectory = "/home/agelter";
     username = "agelter";
     stateVersion = "23.05";
+    sessionPath = [
+      "${config.home.homeDirectory}/bin"
+      "${config.home.homeDirectory}/.config/mutable_node_modules/bin"
+    ];
   };
 
   imports = if withGUI then [

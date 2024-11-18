@@ -34,6 +34,7 @@
 
     homeConfigurations.server = mkHomeConfiguration {
       extraSpecialArgs = {
+        configName = "server";
         withGUI = false;
         isDesktop = false;
         isWorkMachine = true;
@@ -50,6 +51,7 @@
         })
       ];
       extraSpecialArgs = {
+        configName = "mac";
         withGUI = true;
         isDesktop = true;
         isWorkMachine = true;

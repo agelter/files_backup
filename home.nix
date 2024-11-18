@@ -8,7 +8,7 @@ let
   zshsettings = import ./nix/zsh.nix;
 
   # hacky way of determining which machine I'm running this from
-  inherit (specialArgs) withGUI isDesktop isWorkMachine;
+  inherit (specialArgs) configName withGUI isDesktop isWorkMachine;
 
   inherit (lib) mkIf;
   inherit (pkgs.stdenv) isLinux isDarwin;
@@ -52,7 +52,7 @@ in
   programs.git = gitsettings { inherit pkgs config isDesktop; };
   programs.neovim = vimsettings pkgs;
   programs.vscode = vscode { inherit pkgs config withGUI; };
-  programs.zsh = zshsettings { inherit pkgs config isWorkMachine; };
+  programs.zsh = zshsettings { inherit pkgs config configName isWorkMachine; };
 
   programs.direnv = {
    enable = true;

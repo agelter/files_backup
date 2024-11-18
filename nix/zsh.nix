@@ -1,4 +1,4 @@
-{ pkgs, config, isWorkMachine }: {
+{ pkgs, config, configName, isWorkMachine }: {
   enable = true;
   autosuggestion = {
     enable = true;
@@ -87,6 +87,7 @@
     ssh = "ssh -Y";
     cat = "bat --paging=never";
     rg = "rg --hidden -g \"!.git\" -g \"!.yarn\"";
+    dotfile_update = "function _df_update() { cd $DOTFILES_DIR; nix flake update; home-manager switch --flake \".#${configName}\" -b bk; }; _df_update";
   } // (if isWorkMachine then {
     connect_vpn = "sudo openvpn --config /etc/openvpn/lt.ovpn.netflix.net.201908.ovpn";
     fixpulse = "sudo launchctl unload -w /Library/LaunchDaemons/net.pulsesecure.AccessService.plist; sudo launchctl load -w /Library/LaunchDaemons/net.pulsesecure.AccessService.plist";
@@ -123,6 +124,8 @@
 
     # Don't echo the command back to the console
     DISABLE_AUTO_TITLE = true;
+
+    DOTFILES_DIR = "${config.home.homeDirectory}/.dotfiles";
 
     # Local bin
     PATH = "$PATH:~/bin";

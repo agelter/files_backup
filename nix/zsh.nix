@@ -126,9 +126,6 @@
     DISABLE_AUTO_TITLE = true;
 
     DOTFILES_DIR = "${config.home.homeDirectory}/.dotfiles";
-
-    # Local bin
-    PATH = "$PATH:~/bin";
   } // (if isWorkMachine then {
     # Xilinx
     XILINXD_LICENSE_FILE = "2100@xilinx-license-server.nflxsdn.com";

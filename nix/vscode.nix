@@ -1,6 +1,8 @@
 { pkgs, config, withGUI }: {
   enable = withGUI;
 
+  mutableExtensionsDir = true;
+
   extensions = (with pkgs.vscode-extensions; [
     alefragnani.project-manager
     bbenoist.nix
@@ -20,7 +22,7 @@
     #mesonbuild.mesonbuild
     mhutchie.git-graph
     ms-azuretools.vscode-docker
-    #mshr-h.veriloghdl
+    mshr-h.veriloghdl
     ms-python.black-formatter
     ms-python.debugpy
     ms-python.flake8
@@ -317,6 +319,7 @@
           "ms-vscode.cpptools-extension-pack"
           "ms-vscode.makefile-tools"
           "ms-vscode.test-adapter-converter"
+          "mshr-h.veriloghdl"
           "redhat.vscode-yaml"
           "shardulm94.trailing-spaces"
           "streetsidesoftware.code-spell-checker"

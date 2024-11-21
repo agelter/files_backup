@@ -181,6 +181,8 @@
     cSpell = {
       enabled = true;
       language = "en";
+      allowCompoundWords = true;
+      caseSensitive = false;
       maxNumberOfProblems = 100;
       showStatus = true;
       showStatusWithCount = true;
@@ -192,14 +194,22 @@
         "avtnt"
         "bitfile"
         "bitstream"
+        "direnv"
         "dockerregistery"
         "elevenmax"
         "metatron"
         "petalinux"
+        "pypirc"
+        "pkgs"
+        "shellcheck"
         "vivado"
         "vitis"
+        "wakatime"
         "xsct"
         "xilinx"
+        "yarnrc"
+        "zoxide"
+        "zsh"
       ];
     };
 
@@ -244,6 +254,7 @@
         "**/*.pyc" = true;
         "**/__pycache__" = true;
       };
+      trimTrailingWhitespace = true;
     };
 
     git = {

@@ -1,3 +1,4 @@
+# cSpell: words pkgs nixpkgs stdenv zshsettings
 { config, lib, pkgs, specialArgs, ... }:
 
 let

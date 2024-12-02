@@ -41,7 +41,6 @@
     redhat.java
     redhat.vscode-yaml
     shardulm94.trailing-spaces
-    streetsidesoftware.code-spell-checker
     #suoto.hdl-checker-client
     timonwong.shellcheck
     twxs.cmake
@@ -178,41 +177,6 @@
       tlsKeyFile = "${config.home.homeDirectory}/.metatron/certificates/client.key";
     };
 
-    cSpell = {
-      enabled = true;
-      language = "en";
-      allowCompoundWords = true;
-      caseSensitive = false;
-      maxNumberOfProblems = 100;
-      showStatus = true;
-      showStatusWithCount = true;
-      showSuggestions = true;
-      spellCheckDelayMs = 50;
-      suggestCompoundWords = true;
-      words = [
-        "agelter"
-        "avtnt"
-        "bitfile"
-        "bitstream"
-        "direnv"
-        "dockerregistery"
-        "elevenmax"
-        "metatron"
-        "petalinux"
-        "pypirc"
-        "pkgs"
-        "shellcheck"
-        "vivado"
-        "vitis"
-        "wakatime"
-        "xsct"
-        "xilinx"
-        "yarnrc"
-        "zoxide"
-        "zsh"
-      ];
-    };
-
     C_Cpp = {
       codeAnalysis = {
         clangTidy = {
@@ -333,7 +297,6 @@
           "mshr-h.veriloghdl"
           "redhat.vscode-yaml"
           "shardulm94.trailing-spaces"
-          "streetsidesoftware.code-spell-checker"
           "timonwong.shellcheck"
           "twxs.cmake"
           "usernamehw.errorlens"

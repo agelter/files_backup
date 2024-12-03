@@ -94,6 +94,7 @@
 
     # Eleven
     kssh = "kaiju-admin ssh --wg";
+    ksshl = "kaiju-admin ssh --legacy-vpn";
     kssh_home_eleven = "kssh $HOME_ELEVEN";
     kssh_office_eleven_unlocked = "kssh $OFFICE_ELEVEN_UNLOCKED";
     kssh_frederic_unigraf_eleven = "kssh $FREDERIC_UNIGRAF_ELEVEN";

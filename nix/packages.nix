@@ -11,6 +11,7 @@
   git
   gnupg
   lsd
+  meson
   nix-index
   nix-template
   nix-tree

@@ -4,6 +4,7 @@
     enable = true;
     highlight = "fg=8";
   };
+  enableCompletion = true;
   syntaxHighlighting.enable = true;
 
   oh-my-zsh = {
@@ -166,6 +167,9 @@
 
     # Newt
     eval "$(NEWT_OFFLINE=1 NEWT_QUIET=1 newt --completion-script-zsh)"
+
+    # graphite completion
+    eval "$(gt completion)"
 
     function nflx_promote() (
       cd ${config.home.homeDirectory}/src/avtnt/rae-packagecloud &&

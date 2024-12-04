@@ -10,6 +10,7 @@
   fzf
   git
   gnupg
+  graphite-cli
   lsd
   meson
   nix-index

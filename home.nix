@@ -53,6 +53,8 @@ in
   home.file.".wakatime.cfg".source = ./configs/.wakatime.cfg;
   home.file.".yarnrc".source = ./configs/.yarnrc;
   home.file.".p10k.zsh".source = ./configs/.p10k.zsh;
+  home.file.".config/graphite/user_config".source = ./configs/graphite_config;
+  home.file.".config/graphite/aliases".source = ./configs/graphite_aliases;
 
   programs.git = gitsettings { inherit pkgs config isDesktop; };
   programs.neovim = vimsettings pkgs;

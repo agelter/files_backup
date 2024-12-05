@@ -1,0 +1,8 @@
+{
+  "authToken": "P4n5t0V4RoqdQ1UzlnvxFhETPTHFDNU8gWHXur4xPjFfz2SPxz9Fm4TLmaL7",
+  "branchPrefix": "agelter/",
+  "branchDate": false,
+  "allowSlashesInGeneratedBranchNames": false,
+  "branchReplacement": "-",
+  "submitIncludeCommitMessages": true
+}

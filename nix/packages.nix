@@ -28,6 +28,11 @@
   wget
   zoxide
 
+  # sops
+  age
+  sops
+  ssh-to-age
+
   # zsh
   zsh-powerlevel10k
   meslo-lgs-nf

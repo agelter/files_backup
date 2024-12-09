@@ -1,0 +1,9 @@
+keys:
+  - &admin_agelter age1hfe3vyhqfzt8cg95n33fy4gerph03wqnfdfwhpt97rypt9k9xqgsp0ltyd
+  - &server_xilinx age1eyt7r70dw2y8uvx0jdevyczk5cn5dvq7qktspy5ftlj4p6qfx4msw6cyte
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+        - *admin_agelter
+        - *server_xilinx

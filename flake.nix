@@ -9,9 +9,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     mac-app-util.url = "github:hraban/mac-app-util";
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = { self, home-manager, nixpkgs, utils, mac-app-util }:
+  outputs = { self, home-manager, nixpkgs, utils, mac-app-util, sops-nix }:
     let
       pkgsForSystem = system: import nixpkgs {
         inherit system;
@@ -19,7 +20,10 @@
       };
 
       mkHomeConfiguration = args: home-manager.lib.homeManagerConfiguration (rec {
-        modules = [ (import ./home.nix) ] ++ (args.modules or []);
+        modules = [
+          (import ./home.nix)
+          sops-nix.homeManagerModules.sops
+        ] ++ (args.modules or []);
         pkgs = pkgsForSystem (args.system or "x86_64-linux");
       } // { inherit (args) extraSpecialArgs; });
 

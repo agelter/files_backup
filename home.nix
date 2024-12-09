@@ -47,13 +47,25 @@ in
     }) { inherit config lib pkgs; })
   ] else [];
 
+  sops = {
+    age.keyFile = "./secrets/age_key.txt";
+    defaultSopsFile = ./secrets/secrets.yaml;
+    secrets = {
+      graphite_personal_token = { };
+      graphite_corp_token = { };
+    };
+    templates.graphite_config = {
+      content = builtins.toJSON (import ./nix/graphite.nix { inherit config; });
+      path = "${config.home.homeDirectory}/.config/graphite/user_config";
+    };
+  };
+
   home.file.".npmrc".source = ./configs/.npmrc;
   home.file.".prettierrc".source = ./configs/.prettierrc;
   home.file.".pypirc".source = ./configs/.pypirc;
   home.file.".wakatime.cfg".source = ./configs/.wakatime.cfg;
   home.file.".yarnrc".source = ./configs/.yarnrc;
   home.file.".p10k.zsh".source = ./configs/.p10k.zsh;
-  home.file.".config/graphite/user_config".source = ./configs/graphite_config;
   home.file.".config/graphite/aliases".source = ./configs/graphite_aliases;
 
   programs.git = gitsettings { inherit pkgs config isDesktop; };

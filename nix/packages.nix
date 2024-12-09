@@ -9,6 +9,7 @@
   fd
   fzf
   git
+  git-secret
   gnupg
   graphite-cli
   lsd

@@ -88,6 +88,12 @@
       sha256 = "InEfF1X7AgtsV47h8WWq5DZh6k/wxYhl2r/pLZz9JbU=";
     }
     {
+      name = "gti-vscode";
+      publisher = "graphite";
+      version = "latest";
+      sha256 = "gGpWj1iVz6nYgMk7RuYgvIf9E8Yq0lt9PZnhLLDO7So=";
+    }
+    {
       name = "gradle-language";
       publisher = "naco-siren";
       version = "latest";
@@ -157,6 +163,7 @@
 
 
   userSettings = {
+    application.shellEnvironmentResolutionTimeout = 20;
     breadcrumbs.enabled = true;
 
     "[c]" = {
@@ -282,6 +289,7 @@
           "editorconfig.editorconfig"
           "esbenp.prettier-vscode"
           "github.copilot"
+          "graphite.gti-vscode"
           "mhutchie.git-graph"
           "ms-python.black-formatter"
           "ms-python.debugpy"

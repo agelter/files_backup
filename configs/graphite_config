@@ -1,5 +1,16 @@
 {
-  "authToken": "P4n5t0V4RoqdQ1UzlnvxFhETPTHFDNU8gWHXur4xPjFfz2SPxz9Fm4TLmaL7",
+  "alternativeProfiles": [
+    {
+      "name": "default",
+      "hostPrefix": "",
+      "authToken": "uFOwRJDT6iJ2tsvO58VEtG6yGt1ePV0QVbb0Eb6VPesAXZwZfBrVGQUWHigO"
+    },
+    {
+      "name": "personal",
+      "hostPrefix": "",
+      "authToken": "P4n5t0V4RoqdQ1UzlnvxFhETPTHFDNU8gWHXur4xPjFfz2SPxz9Fm4TLmaL7"
+    }
+  ],
   "branchPrefix": "agelter/",
   "branchDate": false,
   "allowSlashesInGeneratedBranchNames": false,

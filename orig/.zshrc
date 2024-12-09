@@ -137,8 +137,6 @@ export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 
 export TEST_DIR=nrdptest/tests
 
-export DEVICETESTS_TOKEN="NjAzNzM0NTYxOTMxOkrGvUKFN6Ojik+Rzdgyiwn2P0YI"
-
 # NTS
 export NEBULA_HOME="~/src/nts-scripting-with-java8/gradle/wrapper"
 #export NF_IDFILE="~/.idfile"

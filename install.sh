@@ -9,6 +9,25 @@ fi
 
 CONFIG="$1"
 
+# hack because nix doesn't want to run scripts directly
+# Run the newt installation script
+if [ -f "$HOME/.install-netflix-tools.sh" ] && [ ! -f "$HOME/.netflix_tools_installed" ]; then
+  "$HOME/.install-netflix-tools.sh"
+  touch "$HOME/.netflix_tools_installed"
+fi
+
+# decrypt secrets
+metatron decrypt -a
+
+# hack: add secrets to git so nix can pick them up
+git add -f root/metatron/decrypted/
+
+cleanup() {
+  git restore --staged --worktree root/metatron/decrypted/
+}
+trap cleanup EXIT SIGINT SIGTERM
+# end hack
+
 # install nix
 if ! command -v nix > /dev/null; then
   echo "Installing nix..."
@@ -37,9 +56,3 @@ command -v zsh | sudo tee -a /etc/shells
 # use zsh as default shell
 sudo chsh -s "$(which zsh)" "$USER"
 
-# hack because nix doesn't want to run scripts directly
-# Run the newt installation script
-if [ -f "$HOME/.install-netflix-tools.sh" ] && [ ! -f "$HOME/.netflix_tools_installed" ]; then
-  "$HOME/.install-netflix-tools.sh"
-  touch "$HOME/.netflix_tools_installed"
-fi

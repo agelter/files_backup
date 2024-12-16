@@ -13,6 +13,7 @@
   graphite-cli
   lsd
   meson
+  ninja
   nix-index
   nix-template
   nix-tree

@@ -1,4 +1,18 @@
-{ pkgs, config, isDesktop}: {
+{ pkgs, config, isDesktop, isWorkMachine, withGUI }:
+  let workGitConfig = if (isWorkMachine && !withGUI) then {
+    "include" = {
+      path = "${config.home.homeDirectory}/.config/git/server.gitconfig";
+    };
+  } else if (isWorkMachine && withGUI) then {
+    "http \"https://stash-temporary.netflix.net:7006/\"" = {
+      sslVerify = true;
+      sslCert = "${config.home.homeDirectory}/.metatron/certificates/client.crt";
+      sslKey = "${config.home.homeDirectory}/.metatron/certificates/client.key";
+    };
+  } else {};
+
+in
+{
   enable = true;
   lfs.enable = true;
   userName = "Aaron Gelter";
@@ -31,7 +45,7 @@
     bcln = "!f() { dbranch=$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5); git branch -d $(git branch --merged=$dbranch | grep -v $dbranch); }; f";
   };
 
-  extraConfig = {
+  extraConfig = workGitConfig // {
     core = {
       editor = "vi";
       autocrlf = "input";
@@ -42,11 +56,6 @@
       program = if pkgs.stdenv.isLinux then "/opt/1Password/op-ssh-sign" else "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       allowedSignersFile = "${config.home.homeDirectory}/.config/git/allowed_signers";
     } else {};
-    "http \"https://stash-temporary.netflix.net:7006/\"" = {
-      sslVerify = true;
-      sslCert = "${config.home.homeDirectory}/.metatron/certificates/client.crt";
-      sslKey = "${config.home.homeDirectory}/.metatron/certificates/client.key";
-    };
     init.defaultBranch = "main";
     merge = {
       renamelimit = "5000";

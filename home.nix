@@ -56,7 +56,9 @@ in
   home.file.".config/graphite/aliases".source = ./configs/graphite_aliases;
   home.file.".config/graphite/user_config".source = ./root/metatron/decrypted/graphite_config;
 
-  programs.git = gitsettings { inherit pkgs config isDesktop; };
+  home.file.".config/git/server.gitconfig".source = ./configs/.nflxservergitconfig;
+  programs.git = gitsettings { inherit pkgs config isDesktop isWorkMachine withGUI; };
+
   programs.neovim = vimsettings pkgs;
   programs.vscode = vscode { inherit pkgs config withGUI; };
   programs.zsh = zshsettings { inherit pkgs config configName isWorkMachine; };

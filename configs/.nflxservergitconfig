@@ -1,0 +1,40 @@
+
+[url "https://git.netflix.net"]
+    insteadOf = ssh://git@stash.corp.netflix.com:7999
+    insteadOf = ssh://stash.corp.netflix.com:7999
+    insteadOf = ssh://git@stash.netflix.com:7999
+    insteadOf = ssh://stash.netflix.com:7999
+    insteadOf = ssh://git@stash-corp-ci-stable.prod.netflix.net:7999
+    insteadOf = ssh://stash-corp-ci-stable.prod.netflix.net:7999
+
+[url "https://git.netflix.net"]
+    insteadOf = https://stash.netflix.com:7006/scm
+    insteadOf = https://stash.corp.netflix.com/scm
+    insteadOf = https://stash.prod.netflix.net:7006/scm
+    insteadOf = https://stash.corp.netflix.com:7006/scm
+    insteadOf = https://stash-corp-ci-stable.prod.netflix.net:7006/scm
+
+[http "https://stash-corp-ci-stable.prod.netflix.net:7006"]
+    sslCert = /var/cache/nflxaccess/client.crt
+    sslKey = /var/cache/nflxaccess/client.key
+
+[http "https://git.netflix.net"]
+    sslCert = /var/cache/nflxaccess/client.crt
+    sslKey = /var/cache/nflxaccess/client.key
+
+[http "https://git.test.netflix.net"]
+    sslCert = /var/cache/nflxaccess/client.crt
+    sslKey = /var/cache/nflxaccess/client.key
+
+[http "https://git.staging.netflix.net"]
+    sslCert = /var/cache/nflxaccess/client.crt
+    sslKey = /var/cache/nflxaccess/client.key
+
+[url "https://git.staging.netflix.net"]
+    insteadOf = https://github-staging.netflix.net
+
+[url "https://git.netflix.net"]
+    insteadOf = https://github.netflix.net
+
+[url "https://git.test.netflix.net"]
+    insteadOf = https://github-unstable.netflix.net

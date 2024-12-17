@@ -94,13 +94,13 @@
     fixpulse = "sudo launchctl unload -w /Library/LaunchDaemons/net.pulsesecure.AccessService.plist; sudo launchctl load -w /Library/LaunchDaemons/net.pulsesecure.AccessService.plist";
 
     # Eleven
-    kssh = "kaiju-admin ssh --wg";
-    ksshl = "kaiju-admin ssh --legacy-vpn";
+    kssh = "shelby ssh --wg";
+    ksshl = "shelby ssh --legacy-vpn";
     kssh_home_eleven = "kssh $HOME_ELEVEN";
     kssh_office_eleven_unlocked = "kssh $OFFICE_ELEVEN_UNLOCKED";
     kssh_frederic_unigraf_eleven = "kssh $FREDERIC_UNIGRAF_ELEVEN";
 
-    kscp = "kaiju-admin scp --wg";
+    kscp = "shelby scp --wg";
 
     reboot_device = "function _reboot() { curl -X POST https://reboot.dta.netflix.com/v1/reboot -H \"Content-Type: application/json\" -d \"{\"query\":{\"devId\":\"$1\"}}\"; }; _reboot";
   } else {});
@@ -175,6 +175,16 @@
       cd ${config.home.homeDirectory}/src/avtnt/rae-packagecloud &&
         newt exec node promote.js "$@"
     )
+
+    builder_to_eleven() {
+      local build_machine="XilinxBuilder"
+      local remote_machine_user="$2"
+      local artifact_path="$1"
+      local artifact_name=$(basename "$artifact_path")
+
+      scp "''${build_machine}:''${artifact_path}" "/tmp/''${artifact_name}" && \
+      shelby scp --wg "/tmp/''${artifact_name}" "''${remote_machine_user}:~/''${artifact_name}"
+  }
   '' else null);
 
 }

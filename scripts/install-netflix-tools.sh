@@ -9,6 +9,9 @@ curl -s 'https://artifacts.netflix.com/devtools/metatron-cli/install-script' | b
 # dropship
 curl -sL https://go.prod.netflix.net/install-vscode-dropship | bash
 
+# shelby-cli
+curl https://file.dta.netflix.com/shelby/cli/install.sh | bash
+
 # git-clang-format
 # specific SHA because the most recent version of git-clang-format
 # is not compatible with the version of clang-format (16.0.6) installed by nix

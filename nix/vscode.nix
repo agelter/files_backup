@@ -163,7 +163,7 @@
 
 
   userSettings = {
-    application.shellEnvironmentResolutionTimeout = 20;
+    application.shellEnvironmentResolutionTimeout = 30;
     breadcrumbs.enabled = true;
 
     "[c]" = {

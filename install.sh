@@ -8,6 +8,7 @@ if [ -z "$1" ]; then
 fi
 
 CONFIG="$1"
+UPDATE="$2"
 
 # hack because nix doesn't want to run scripts directly
 # Run the newt installation script
@@ -48,6 +49,10 @@ else
 fi
 
 # init!
+if [[ "$UPDATE" == "--update" ]]; then
+    echo "Updating flake.lock with latest packages"
+    nix flake update
+fi
 home-manager switch --flake .#"${CONFIG}" -b bk
 
 # add zsh as a login shell

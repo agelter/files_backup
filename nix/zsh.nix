@@ -94,13 +94,14 @@
     fixpulse = "sudo launchctl unload -w /Library/LaunchDaemons/net.pulsesecure.AccessService.plist; sudo launchctl load -w /Library/LaunchDaemons/net.pulsesecure.AccessService.plist";
 
     # Eleven
-    kssh = "shelby ssh --wg";
-    ksshl = "shelby ssh --legacy-vpn";
+    kssh = "shelby ssh";
+    ksshl = "shelby ssh --legacy";
+    ksshd = "shelby ssh --direct";
     kssh_home_eleven = "kssh $HOME_ELEVEN";
     kssh_office_eleven_unlocked = "kssh $OFFICE_ELEVEN_UNLOCKED";
     kssh_frederic_unigraf_eleven = "kssh $FREDERIC_UNIGRAF_ELEVEN";
 
-    kscp = "shelby scp --wg";
+    kscp = "shelby scp";
 
     reboot_device = "function _reboot() { curl -X POST https://reboot.dta.netflix.com/v1/reboot -H \"Content-Type: application/json\" -d \"{\"query\":{\"devId\":\"$1\"}}\"; }; _reboot";
   } else {});
@@ -183,7 +184,7 @@
       local artifact_name=$(basename "$artifact_path")
 
       scp "''${build_machine}:''${artifact_path}" "/tmp/''${artifact_name}" && \
-      shelby scp --wg "/tmp/''${artifact_name}" "''${remote_machine_user}:~/''${artifact_name}"
+      shelby scp "/tmp/''${artifact_name}" "''${remote_machine_user}:~/''${artifact_name}"
   }
   '' else null);
 

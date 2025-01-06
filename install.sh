@@ -8,7 +8,7 @@ if [ -z "$1" ]; then
 fi
 
 CONFIG="$1"
-UPDATE="$2"
+UPDATE="${2:-''}"
 
 # hack because nix doesn't want to run scripts directly
 # Run the newt installation script

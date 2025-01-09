@@ -38,6 +38,19 @@
 ] ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
   # these packages are only installed in MacOs
   stats
+
+  # for OS class
+  gawk
+  gmp
+  mpfr
+  libmpc
+  isl
+  zlib
+  expat
+  texinfo
+  flock
+  libslirp
+  qemu
 ] ++ pkgs.lib.optionals withGUI [
   # these packages are only installed in GUI environments
 ] ++ pkgs.lib.optionals isWorkMachine [

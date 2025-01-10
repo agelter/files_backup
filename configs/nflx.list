@@ -1,0 +1,2 @@
+deb [arch=amd64 trusted=yes] https://artifacts.netflix.net/debian-local nflx main
+deb [arch=amd64 trusted=yes] https://artifacts.netflix.net/debian-local noble main

@@ -1,10 +1,25 @@
 #!/usr/bin/env bash
 
+if [ -z "$1" ]; then
+    echo "Error: run as '$0 <dotfiles-proj-root>'"
+    exit 1
+fi
+DOTFILES_PROJ_ROOT="$1"
+
 # newt
 curl -q -sL 'https://go.prod.netflix.net/newt-install' | bash
 
-# metatron
-curl -s 'https://artifacts.netflix.com/devtools/metatron-cli/install-script' | bash
+# metatron for dedicated instance
+sudo cp "${DOTFILES_PROJ_ROOT}/configs/nflx.list" /etc/apt/sources.list.d/nflx.list
+if ! command -v metatron > /dev/null && [ ! -f "${DOTFILES_PROJ_ROOT}/root/metatron/decrypted/nflx-artifactory.asc" ]; then
+    echo "Error: nflx-artifactory.asc not yet decrypted and metatron CLI is not installed."
+    echo "You'll have to scp the file onto this machine to ${DOTFILES_PROJ_ROOT}/root/metatron/decrypted/nflx-artifactory.asc to bootstrap."
+    echo "Then run this script again."
+    exit 1
+else
+    sudo cp "${DOTFILES_PROJ_ROOT}/root/metatron/decrypted/nflx-artifactory.asc" /etc/apt/trusted.gpg.d/nflx-artifactory.asc
+fi
+sudo apt update && sudo apt install -y metatron-tools
 
 # dropship
 curl -sL https://go.prod.netflix.net/install-vscode-dropship | bash

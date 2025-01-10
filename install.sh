@@ -2,6 +2,8 @@
 
 set -eu
 
+SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
+
 if [ -z "$1" ]; then
   echo "Error: run as '$0 <config>' where config is one of the configurations in flake.nix"
   exit 1
@@ -13,18 +15,24 @@ UPDATE="${2:-''}"
 # hack because nix doesn't want to run scripts directly
 # Run the newt installation script
 if [ -f "$HOME/.install-netflix-tools.sh" ] && [ ! -f "$HOME/.netflix_tools_installed" ]; then
-  "$HOME/.install-netflix-tools.sh"
+  "$HOME/.install-netflix-tools.sh" "$(dirname "$SCRIPT_PATH")"
   touch "$HOME/.netflix_tools_installed"
 fi
 
-# decrypt secrets
-metatron decrypt -a
+if command -v metatron > /dev/null; then
+  # decrypt secrets
+  metatron decrypt -a
 
-# hack: add secrets to git so nix can pick them up
-git add -f root/metatron/decrypted/
+  # hack: add secrets to git so nix can pick them up
+  git add -f root/metatron/decrypted/
+else
+  echo "Metatron is not (yet) installed. Skipping decryption of secrets."
+fi
 
 cleanup() {
-  git restore --staged --worktree root/metatron/decrypted/
+  if [ -f "root/metatron/decrypted" ]; then
+    git restore --staged --worktree root/metatron/decrypted/
+  fi
 }
 trap cleanup EXIT SIGINT SIGTERM
 # end hack
@@ -46,6 +54,13 @@ if ! command -v nix > /dev/null; then
   echo "experimental-features = nix-command flakes" > "${HOME}/.config/nix/nix.conf"
 else
   echo "Nix is already installed"
+fi
+
+if ! command -v home-manager > /dev/null; then
+  echo "Installing home-manager..."
+  nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+  nix-channel --update
+  nix-shell '<home-manager>' -A install
 fi
 
 # init!

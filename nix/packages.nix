@@ -24,6 +24,7 @@
   python3
   ripgrep
   shellcheck
+  tmux
   tree
   wakatime
   wget

@@ -13,6 +13,9 @@ let
 
   inherit (lib) mkIf;
   inherit (pkgs.stdenv) isLinux isDarwin;
+
+  directoryExists = dir: builtins.pathExists dir && (builtins.tryEval (builtins.readDir dir)).success;
+  metatronDecryptedDir = builtins.toString ./root/metatron/decrypted;
 in
 {
 
@@ -47,16 +50,31 @@ in
     }) { inherit config lib pkgs; })
   ] else [];
 
-  home.file.".npmrc".source = ./configs/.npmrc;
-  home.file.".prettierrc".source = ./configs/.prettierrc;
-  home.file.".pypirc".source = ./configs/.pypirc;
-  home.file.".wakatime.cfg".source = ./configs/.wakatime.cfg;
-  home.file.".yarnrc".source = ./configs/.yarnrc;
-  home.file.".p10k.zsh".source = ./configs/.p10k.zsh;
-  home.file.".config/graphite/aliases".source = ./configs/graphite_aliases;
-  home.file.".config/graphite/user_config".source = ./root/metatron/decrypted/graphite_config;
+  home.file = lib.mkMerge [
+    {
+      ".npmrc".source = ./configs/.npmrc;
+      ".prettierrc".source = ./configs/.prettierrc;
+      ".pypirc".source = ./configs/.pypirc;
+      ".wakatime.cfg".source = ./configs/.wakatime.cfg;
+      ".yarnrc".source = ./configs/.yarnrc;
+      ".p10k.zsh".source = ./configs/.p10k.zsh;
+      ".config/graphite/aliases".source = ./configs/graphite_aliases;
+    }
+    (lib.optionalAttrs (directoryExists metatronDecryptedDir) {
+      ".config/graphite/user_config".source = "${metatronDecryptedDir}/graphite_config";
+    })
+    (lib.optionalAttrs (isWorkMachine) {
+      ".config/git/server.gitconfig".source = ./configs/.nflxservergitconfig;
 
-  home.file.".config/git/server.gitconfig".source = ./configs/.nflxservergitconfig;
+      # Newt, Metatron, etc
+      ".install-netflix-tools.sh" = {
+        source = ./scripts/install-netflix-tools.sh;
+        executable = true;
+      };
+    })
+
+  ];
+
   programs.git = gitsettings { inherit pkgs config isDesktop isWorkMachine withGUI; };
 
   programs.neovim = vimsettings pkgs;
@@ -77,10 +95,4 @@ in
    enable = true;
    enableZshIntegration = true;
   };
-
-  # Newt, Metatron, etc
-  home.file.".install-netflix-tools.sh" = if isWorkMachine then {
-    source = ./scripts/install-netflix-tools.sh;  # Ensure the path is correct
-    executable = true;
-  } else lib.mkForce null;
 }

@@ -1,4 +1,4 @@
-#  Dotfiles management
+# Dotfiles management
 
 To install files in new environment, do:
 
@@ -10,4 +10,3 @@ where `<configuration>` is one of the environments listed in `flake.nix`.
 ## Secrets
 
 Secrets are encrypted using metatron and the `avtnt-eleven` policy.
-

@@ -3,12 +3,14 @@
     "include" = {
       path = "${config.home.homeDirectory}/.config/git/server.gitconfig";
     };
+    user.signingkey = "C73B427821EA198E";
   } else if (isWorkMachine && withGUI) then {
     "http \"https://stash-temporary.netflix.net:7006/\"" = {
       sslVerify = true;
       sslCert = "${config.home.homeDirectory}/.metatron/certificates/client.crt";
       sslKey = "${config.home.homeDirectory}/.metatron/certificates/client.key";
     };
+    user.signingkey = "C73B427821EA198E";
   } else {};
 
 in
@@ -46,16 +48,12 @@ in
   };
 
   extraConfig = workGitConfig // {
+    commit.gpgSign = true;
     core = {
       editor = "vi";
       autocrlf = "input";
     };
     fetch.prune = true;
-    gpg.format = "ssh";
-    "gpg \"ssh\"" = if isDesktop then {
-      program = if pkgs.stdenv.isLinux then "/opt/1Password/op-ssh-sign" else "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-      allowedSignersFile = "${config.home.homeDirectory}/.config/git/allowed_signers";
-    } else {};
     init.defaultBranch = "main";
     merge = {
       renamelimit = "5000";
@@ -63,7 +61,6 @@ in
     };
     pull.rebase = true;
     push.autoSetupRemote = true;
-    status.submoduleSummary = true;
     rebase = {
       autoStash = true;
       updateRefs = true;
@@ -72,6 +69,8 @@ in
       enabled = true;
       autoupdate = true;
     };
+    status.submoduleSummary = true;
+    tag.gpgSign = true;
   };
 
   diff-so-fancy = {

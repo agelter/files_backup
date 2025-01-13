@@ -77,6 +77,16 @@ in
 
   programs.git = gitsettings { inherit pkgs config isDesktop isWorkMachine withGUI; };
 
+  programs.gpg.enable = true;
+  services = {
+    gnome-keyring.enable = if isLinux then true else false;
+    gpg-agent = {
+      enable = true;
+      enableSshSupport = true;
+      defaultCacheTtl = 60 * 60 * 24;
+    };
+  };
+
   programs.neovim = vimsettings pkgs;
   programs.vscode = vscode { inherit pkgs config withGUI; };
   programs.zsh = zshsettings { inherit pkgs config configName isWorkMachine; };

@@ -3,6 +3,7 @@
 set -eu
 
 SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
+SCRIPT_DIR="$(dirname "${SCRIPT_PATH}")"
 
 if [ -z "$1" ]; then
   echo "Error: run as '$0 <config>' where config is one of the configurations in flake.nix"
@@ -15,7 +16,7 @@ UPDATE="${2:-''}"
 # hack because nix doesn't want to run scripts directly
 # Run the newt installation script
 if [ -f "$HOME/.install-netflix-tools.sh" ] && [ ! -f "$HOME/.netflix_tools_installed" ]; then
-  "$HOME/.install-netflix-tools.sh" "$(dirname "$SCRIPT_PATH")"
+  "$HOME/.install-netflix-tools.sh" "$SCRIPT_DIR"
   touch "$HOME/.netflix_tools_installed"
 fi
 
@@ -30,7 +31,8 @@ else
 fi
 
 cleanup() {
-  if [ -f "root/metatron/decrypted" ]; then
+  if [ -d "${SCRIPT_DIR}/root/metatron/decrypted" ]; then
+    cd "${SCRIPT_DIR}" || true
     git restore --staged --worktree root/metatron/decrypted/
   fi
 }

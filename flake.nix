@@ -41,6 +41,15 @@
       };
     };
 
+    homeConfigurations.linux_laptop = mkHomeConfiguration {
+      extraSpecialArgs = {
+        configName = "linux_laptop";
+        withGUI = true;
+        isDesktop = true;
+        isWorkMachine = true;
+      };
+    };
+
     homeConfigurations.mac = mkHomeConfiguration {
       system = "aarch64-darwin";
       modules = [

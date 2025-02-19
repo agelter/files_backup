@@ -42,6 +42,7 @@ trap cleanup EXIT SIGINT SIGTERM
 # install nix
 if ! command -v nix > /dev/null; then
   echo "Installing nix..."
+  sudo rm /etc/*.backup-before-nix
   if [[ "$(uname)" == "Darwin" ]]; then
     sh <(curl -L https://nixos.org/nix/install)
   elif [[ "$(uname)" == "Linux" ]]; then
@@ -54,6 +55,9 @@ if ! command -v nix > /dev/null; then
   # enable flakes
   mkdir -p "${HOME}/.config/nix/"
   echo "experimental-features = nix-command flakes" > "${HOME}/.config/nix/nix.conf"
+
+  echo "Launch a new shell and then re-run this script."
+  exit 0
 else
   echo "Nix is already installed"
 fi

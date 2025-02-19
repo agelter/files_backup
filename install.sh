@@ -42,7 +42,7 @@ trap cleanup EXIT SIGINT SIGTERM
 # install nix
 if ! command -v nix > /dev/null; then
   echo "Installing nix..."
-  sudo rm /etc/*.backup-before-nix
+  sudo rm -f /etc/*.backup-before-nix
   if [[ "$(uname)" == "Darwin" ]]; then
     sh <(curl -L https://nixos.org/nix/install)
   elif [[ "$(uname)" == "Linux" ]]; then

@@ -73,7 +73,7 @@
       name = "cpptools";
       publisher = "ms-vscode";
       version = "latest";
-      sha256 = "dY9NpeuiweGOIJLrQlH95U1W6KvjneeDUveRj/XIV+I=";
+      sha256 = "4wNC8bDeLSrJjYY16nBISt1MrSkRRmUnHcvde4TtdV8=";
     }
     {
       name = "cpptools-themes";
@@ -109,7 +109,7 @@
       name = "mypy-type-checker";
       publisher = "ms-python";
       version = "latest";
-      sha256 = "shOk51jru2xHq+LU3AoMRV4Rp5+nnlYear70FI+8mRQ=";
+      sha256 = "Q6wfbm3FMNe0VB29QOf5ulTelGVmZVHUnmK17vbrqWc=";
     }
     {
       name = "noctis";
@@ -121,13 +121,13 @@
       name = "remote-explorer";
       publisher = "ms-vscode";
       version = "latest";
-      sha256 = "U7P4GkjIk+WRAY1Ng5AMx2EiCwEsXY0Rt+b+4fBSJms=";
+      sha256 = "tCNkC7qa59oL9TXA+OKN0Tq5wl0TOLJhHpiKRLmMlgo=";
     }
     {
       name = "remote-server";
       publisher = "ms-vscode";
       version = "latest";
-      sha256 = "G/o4oev8JhvDVcQ1G+IC6kT8L11G5tqSn2kVzLiIrME=";
+      sha256 = "m9P8WFb3qYGF/oL4f6kHQSwd+YCc4vsx1XFhkiQE1B8=";
     }
     {
       name = "tcl";
@@ -157,7 +157,7 @@
       name = "vscode-pets";
       publisher = "tonybaloney";
       version = "latest";
-      sha256 = "ZWJW5Y2jzJlTgnys2GF+5tDBEsn3yZUqlGeYwwBf9zo=";
+      sha256 = "RxOA6xQ29JuB0NzEqMDkF9W1U+AsvgAOzGbtIUw0WyM=";
     }
   ];
 

@@ -29,7 +29,7 @@
         owner = "wbingli";
         repo = "zsh-wakatime";
         rev = "master";
-        sha256 = "zzVKZnMl+YjoWZNZ1aIGXoA/duHbrUOvzzzcVPW0ACk=";
+        sha256 = "iMHPDz4QvaL3YdRd3vaaz1G4bj8ftRVD9cD0KyJVeAs=";
       };
     }
     {

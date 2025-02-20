@@ -55,13 +55,13 @@ in
       ".npmrc".source = ./configs/.npmrc;
       ".prettierrc".source = ./configs/.prettierrc;
       ".pypirc".source = ./configs/.pypirc;
-      ".wakatime.cfg".source = ./configs/.wakatime.cfg;
       ".yarnrc".source = ./configs/.yarnrc;
       ".p10k.zsh".source = ./configs/.p10k.zsh;
       ".config/graphite/aliases".source = ./configs/graphite_aliases;
     }
     (lib.optionalAttrs (directoryExists metatronDecryptedDir) {
       ".config/graphite/user_config".source = "${metatronDecryptedDir}/graphite_config";
+      ".wakatime.cfg".source = "${metatronDecryptedDir}/wakatime.cfg";
     })
     (lib.optionalAttrs (isWorkMachine) {
       ".config/git/server.gitconfig".source = ./configs/.nflxservergitconfig;

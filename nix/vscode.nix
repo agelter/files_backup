@@ -234,7 +234,12 @@
         openRepositoryInParentFolders = "never";
       };
 
-      github.copilot.editor.enableAutoCompletions = true;
+      github.copilot = {
+        editor.enableAutoCompletions = true;
+        nextEditSuggestions.enabled = true;
+        chat.scopeSelection = true;
+      };
+
       gitlens.hovers.currentLine.over = "line";
 
       java.semanticHighlighting.enabled = true;

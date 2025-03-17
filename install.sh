@@ -5,7 +5,7 @@ set -eu
 SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
 SCRIPT_DIR="$(dirname "${SCRIPT_PATH}")"
 
-if [ -z "$1" ]; then
+if [ -z "${1:-}" ]; then
   echo "Error: run as '$0 <config>' where config is one of the configurations in flake.nix"
   exit 1
 fi
@@ -44,6 +44,14 @@ cleanup() {
 trap cleanup EXIT SIGINT SIGTERM
 # end hack
 
+if [[ "$(uname)" == "Darwin" ]]; then
+  if [ -e /nix ] && [[ "$FLAG" == "--clean" ]]; then
+    echo "Cleaning up old nix installation"
+    zsh scripts/uninstall_nix_macos.zsh
+    exit 0
+  fi
+fi
+
 # install nix
 if ! command -v nix > /dev/null; then
   echo "Installing nix..."
@@ -77,12 +85,16 @@ if ! command -v home-manager > /dev/null; then
   nix-shell '<home-manager>' -A install
 fi
 
+if [[ "$(uname)" == "Darwin" ]]; then
+  rm -f /Users/agelter/Library/LaunchAgents/org.nix-community.home.gpg-agent.plist
+fi
+
 # init!
 if [[ "$FLAG" == "--update" ]]; then
     echo "Updating flake.lock with latest packages"
     nix flake update
 fi
-home-manager switch --flake .#"${CONFIG}" -b bk
+home-manager --debug -v switch --flake .#"${CONFIG}" -b bk
 
 # add zsh as a login shell
 command -v zsh | sudo tee -a /etc/shells

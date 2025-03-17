@@ -28,7 +28,7 @@ in
     packages = packages { inherit pkgs withGUI isWorkMachine; };
     homeDirectory = "/home/agelter";
     username = "agelter";
-    stateVersion = "23.05";
+    stateVersion = "24.05";
     sessionPath = [
       "${config.home.homeDirectory}/bin"
       "${config.home.homeDirectory}/.config/mutable_node_modules/bin"

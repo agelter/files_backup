@@ -10,8 +10,13 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
+if [ -n "${3:-}" ]; then
+  echo "Only one flag (--update or --clean) is allowed"
+  exit 1
+fi
+
 CONFIG="$1"
-UPDATE="${2:-''}"
+FLAG="${2:-''}"
 
 # hack because nix doesn't want to run scripts directly
 # Run the newt installation script
@@ -42,8 +47,11 @@ trap cleanup EXIT SIGINT SIGTERM
 # install nix
 if ! command -v nix > /dev/null; then
   echo "Installing nix..."
-  sudo rm -f /etc/*.backup-before-nix
   if [[ "$(uname)" == "Darwin" ]]; then
+    if [ -e /nix ] && [[ "$FLAG" == "--clean" ]]; then
+      echo "Cleaning up old nix installation"
+      zsh scripts/uninstall_nix_macos.zsh
+    fi
     sh <(curl -L https://nixos.org/nix/install)
   elif [[ "$(uname)" == "Linux" ]]; then
     sh <(curl -L https://nixos.org/nix/install) --daemon
@@ -70,7 +78,7 @@ if ! command -v home-manager > /dev/null; then
 fi
 
 # init!
-if [[ "$UPDATE" == "--update" ]]; then
+if [[ "$FLAG" == "--update" ]]; then
     echo "Updating flake.lock with latest packages"
     nix flake update
 fi

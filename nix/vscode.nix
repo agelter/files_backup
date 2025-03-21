@@ -41,6 +41,7 @@
       ms-vscode-remote.remote-wsl
       redhat.java
       redhat.vscode-yaml
+      saoudrizwan.claude-dev
       shardulm94.trailing-spaces
       #suoto.hdl-checker-client
       timonwong.shellcheck

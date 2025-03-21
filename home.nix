@@ -31,6 +31,7 @@ in
     stateVersion = "24.05";
     sessionPath = [
       "${config.home.homeDirectory}/bin"
+      "${config.home.homeDirectory}/.local/bin"
       "${config.home.homeDirectory}/.config/mutable_node_modules/bin"
     ];
   };

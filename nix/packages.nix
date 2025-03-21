@@ -1,5 +1,6 @@
 { pkgs, withGUI, isWorkMachine }: with pkgs; [
   # these packages are meant to be installed in all scenarios
+  _1password-cli
   bat
   binutils
   clang-tools
@@ -43,4 +44,5 @@
   # these packages are only installed in GUI environments
 ] ++ pkgs.lib.optionals isWorkMachine [
   # these packages are only installed on work machines
+  groovy
 ]

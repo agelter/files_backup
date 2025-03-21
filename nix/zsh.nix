@@ -89,6 +89,7 @@
     cat = "bat --paging=never";
     rg = "rg --hidden -g \"!.git\" -g \"!.yarn\"";
     dotfile_update = "function _df_update() { cd $DOTFILES_DIR; nix flake update; home-manager switch --flake \".#${configName}\" -b bk; }; _df_update";
+    stop_cline = "newt --app-type mesh stop";
   } // (if isWorkMachine then {
     connect_vpn = "sudo openvpn --config /etc/openvpn/lt.ovpn.netflix.net.201908.ovpn";
     fixpulse = "sudo launchctl unload -w /Library/LaunchDaemons/net.pulsesecure.AccessService.plist; sudo launchctl load -w /Library/LaunchDaemons/net.pulsesecure.AccessService.plist";
@@ -185,6 +186,53 @@
 
       scp "''${build_machine}:''${artifact_path}" "/tmp/''${artifact_name}" && \
       shelby scp "/tmp/''${artifact_name}" "''${remote_machine_user}:~/''${artifact_name}"
+    }
+
+    function setup_cline() {
+      # Ensure VPN and Docker are running
+      echo "Please ensure your VPN is connected and Docker is running."
+
+      # Assign the provided project ID to a variable
+      MODEL_GATEWAY_PROJECT_ID="eleveneyepatch"
+
+      # Create the configuration file
+      echo "Creating proxy configuration file..."
+      cat << EOF > /tmp/proxy-config.yaml
+apiVersion: "v1"
+spec:
+  meshServers:
+    - name: foo
+      config:
+        localTargets:
+          - name: lo_egress
+            httpWorkload:
+              port: 2002
+              requestTimeoutMs: 0
+        listeners:
+        - name: strip_auth
+          port: 7002
+          handlers:
+            - http:
+                security:
+                  plaintext: {}
+                headers:
+                  requestHeadersToRemove:
+                    - "Authorization"
+                defaultRoute:
+                  localTargetName: lo_egress
+EOF
+
+      # Start the proxy
+      echo "Starting the proxy..."
+      newt --app-type mesh start -e prod -s /tmp/proxy-config.yaml
+
+      # Test the connection
+      echo "Testing the connection..."
+      curl -vvv http://copilotdppython-secure.us-east-1.prod.svip.mesh.netflix.net:7002/proxy/$MODEL_GATEWAY_PROJECT_ID/v1/chat/completions \
+          -H "content-type: application/json" \
+          -d '{"model": "gpt-4o", "messages": [{"content": "foo", "role": "user"}]}'
+
+      echo "\n\nSetup complete. Please configure the Cline extension in your IDE as per the instructions at https://go.netflix.com/cline"
   }
   '' else null);
 

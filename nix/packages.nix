@@ -22,7 +22,10 @@
   nixpkgs-fmt
   nixpkgs-review
   nodejs
-  python3
+  (python3.withPackages (ppkgs: [
+    # Add more Python packages here as needed
+    ppkgs.pillow
+  ]))
   ripgrep
   shellcheck
   tmux

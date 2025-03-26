@@ -234,6 +234,19 @@ EOF
 
       echo "\n\nSetup complete. Please configure the Cline extension in your IDE as per the instructions at https://go.netflix.com/cline"
   }
+
+  function copy_ssh_pub_key() {
+    local host=$1
+    local pub_key=$(op item get $(op item list --format json | jq -r '.[] | select(.title | contains("Netflix SSH Key")) | .id') --format json | jq -r '.fields[] | select(.label=="public key") | .value')
+
+    if [[ -z "$pub_key" ]]; then
+      echo "Public key not found."
+      return 1
+    fi
+
+    echo "mkdir -p ~/.ssh && echo \"$pub_key\" >> ~/.ssh/authorized_keys && sudo iptables -A INPUT -i eth0 -p tcp -m tcp --dport 22 -m comment --comment \"allow ssh over the WAN\" -j ACCEPT ; exit" | shelby ssh $host
+  }
+
   '' else null);
 
 }
